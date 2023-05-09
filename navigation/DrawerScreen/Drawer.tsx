@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   StatusBar,
   StyleSheet,
   Text,
@@ -14,9 +15,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import DrawerItem from "./DrawerItem";
 
 import Animated, {
+  SlideOutLeft,
   ZoomInLeft,
-  ZoomOut,
-  ZoomOutLeft,
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
@@ -40,7 +40,7 @@ const Drawer = () => {
   return (
     <Animated.View
       entering={ZoomInLeft.duration(700)}
-      exiting={ZoomOutLeft.duration(750)}
+      exiting={SlideOutLeft.duration(750)}
       style={[styles.container, fadeIn]}
     >
       <View style={styles.menu}>
@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
   },
   menu: {
     flexDirection: "column",
-
     justifyContent: "flex-end",
     paddingBottom: "50%",
   },

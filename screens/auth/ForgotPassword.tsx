@@ -21,7 +21,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 const { height } = Dimensions.get("screen");
 
-const Register = () => {
+const ForgotPassword = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
 
@@ -65,29 +65,17 @@ const Register = () => {
             paddingBottom: insets.top ? insets.top + 10 : 30,
           }}
         >
-          <Header title="Register" subtitle="Create your account" />
+          <Header
+            title={`Forgot \nPassword`}
+            subtitle="Enter your email and follow the instructions"
+          />
           <View style={styles.form}>
             <View style={{ rowGap: 14 }}>
               <InputField label="Email" />
-              <InputField label="Nickname" />
-              <InputField label="Password" password />
-
-              <InputField label="Confirm Password" password />
             </View>
 
             <TouchableOpacity style={styles.mainCta}>
-              <Text style={styles.mainCtaText}>Register</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text>Already have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text style={styles.secondaryCtaText}>Login</Text>
+              <Text style={styles.mainCtaText}>Reset</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -130,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register;
+export default ForgotPassword;
