@@ -16,15 +16,17 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../../components/auth/Header";
 import InputField from "../../components/inputs/InputField";
 import { color } from "../../variables/color";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useTranslation } from "react-i18next";
+import { AuthStackParamList } from "../../navigation/GuestNavigation/GuestStack";
 
 const { height } = Dimensions.get("screen");
 
 const Register = () => {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
-
+  const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+  const { t } = useTranslation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -50,7 +52,6 @@ const Register = () => {
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
-      //  behavior={Platform?.OS === "ios" ? "padding" : "height"}
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
       bounces={false}
@@ -65,18 +66,18 @@ const Register = () => {
             paddingBottom: insets.top ? insets.top + 10 : 30,
           }}
         >
-          <Header title="Register" subtitle="Create your account" />
+          <Header title={t("register")} subtitle={t("createAcc")} />
           <View style={styles.form}>
             <View style={{ rowGap: 14 }}>
               <InputField label="Email" />
-              <InputField label="Nickname" />
-              <InputField label="Password" password />
+              <InputField label={t("nickname")} />
+              <InputField label={t("password")} password />
 
-              <InputField label="Confirm Password" password />
+              <InputField label={t("passwordConfirmation")} password />
             </View>
 
             <TouchableOpacity style={styles.mainCta}>
-              <Text style={styles.mainCtaText}>Register</Text>
+              <Text style={styles.mainCtaText}>{t("register")}</Text>
             </TouchableOpacity>
           </View>
           <View
@@ -85,9 +86,9 @@ const Register = () => {
               justifyContent: "center",
             }}
           >
-            <Text>Already have an account?</Text>
+            <Text style={styles.classicText}>{t("alreadyHaveAcc")}</Text>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text style={styles.secondaryCtaText}>Login</Text>
+              <Text style={styles.secondaryCtaText}>{t("login")}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -97,7 +98,7 @@ const Register = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    //  flex: 1,
+    //   flex: 1,
   },
   form: {
     padding: 20,
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   forgotPassword: {
     fontSize: 15,
     textAlign: "right",
-    fontWeight: "500",
+    fontFamily: "Lexend-Medium",
     color: color.primary,
   },
   mainCta: {
@@ -121,12 +122,21 @@ const styles = StyleSheet.create({
   mainCtaText: {
     fontSize: 17,
     color: color.white,
-    fontWeight: "500",
+    fontFamily: "Lexend-Bold",
   },
   secondaryCtaText: {
     color: color.secondary,
     fontSize: 16,
-    fontWeight: "700",
+    fontFamily: "Lexend-Bold",
+  },
+  langBtn: {
+    position: "absolute",
+    right: 20,
+  },
+  classicText: {
+    color: "#000",
+    fontSize: 14,
+    fontFamily: "Lexend-Light",
   },
 });
 

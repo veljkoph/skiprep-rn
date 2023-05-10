@@ -34,7 +34,6 @@ const InputField = ({ password, label }: IInputField) => {
         style={{
           height: height < 700 ? 50 : 60,
           shadowColor: "#8a8a8a",
-
           shadowOffset: {
             width: 0,
             height: 1,
@@ -43,6 +42,11 @@ const InputField = ({ password, label }: IInputField) => {
           shadowRadius: 1.41,
 
           elevation: 2,
+        }}
+        contentStyle={{
+          color: color.secondary,
+          fontSize: 16,
+          fontFamily: "Lexend-Regular",
         }}
         activeOutlineColor="#001"
         onChangeText={(text) => setText(text)}

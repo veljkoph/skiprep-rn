@@ -16,9 +16,11 @@ const Header = (props: IHeader) => {
         <Text style={styles.text}>{title}</Text>
         <Text style={styles.textS}>{subtitle}</Text>
       </View>
+
       <Image
+        resizeMode="cover"
         style={styles.cover}
-        source={require("../../assets/circles.png")}
+        source={require("../../assets/ski.png")}
       />
     </View>
   );
@@ -29,11 +31,11 @@ export default Header;
 const styles = StyleSheet.create({
   container: {
     justifyContent: "flex-end",
-    height: height < 700 ? height / 4.1 : height / 3.7,
+    height: height < 700 ? height / 3.7 : height / 3.3,
   },
   cover: {
     width: "100%",
-    height: height / 3.5,
+    height: height < 700 ? height / 3.7 : height / 3.3,
     position: "absolute",
   },
   textWrapper: {
@@ -43,14 +45,16 @@ const styles = StyleSheet.create({
     rowGap: 16,
   },
   text: {
-    fontSize: height < 700 ? 28 : 42,
+    fontSize: height < 700 ? 28 : 36,
     color: color.white,
     fontWeight: "500",
+    fontFamily: "Lexend-Bold",
   },
   textS: {
     zIndex: 10,
     fontSize: height < 700 ? 12 : 14,
     color: color.white,
     fontWeight: "300",
+    fontFamily: "Lexend-Regular",
   },
 });

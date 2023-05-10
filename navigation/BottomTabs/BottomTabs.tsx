@@ -1,12 +1,10 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "../../screens/home/Home";
 import Profile from "../../screens/profile/Profile";
-import useDrawerStore from "../../store/useDrawerStore";
 import Faq from "../../screens/faq/Faq";
 import Forum from "../../screens/forum/Forum";
 import { color } from "../../variables/color";

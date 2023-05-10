@@ -18,13 +18,14 @@ import InputField from "../../components/inputs/InputField";
 import { color } from "../../variables/color";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useTranslation } from "react-i18next";
 
 const { height } = Dimensions.get("screen");
 
 const ForgotPassword = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
-
+  const { t } = useTranslation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -66,8 +67,8 @@ const ForgotPassword = () => {
           }}
         >
           <Header
-            title={`Forgot \nPassword`}
-            subtitle="Enter your email and follow the instructions"
+            title={t("forgotPasswordTitle")}
+            subtitle={t("forgotPasswordSubtitle")}
           />
           <View style={styles.form}>
             <View style={{ rowGap: 14 }}>
