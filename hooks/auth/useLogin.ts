@@ -5,27 +5,30 @@ import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";
 import useUserStore from "../../store/useUserStore";
 
+interface iLogin {
+  email: string;
+  password: string;
+}
+
 const useLogin = () => {
   const { setUser } = useUserStore();
   const navigation = useNavigation();
 
   return useMutation(
-    (values) =>
-      axios.post(
-        `http://192.168.0.52/Project/axios_handlers/axios_login_user.php`,
-        values
-      ),
+    (values: iLogin) =>
+      axios.post(`http://192.168.0.111/ski/public/api/login`, values),
+    //{email:"email", password:'password"}
     {
       onSuccess: async (data) => {
         setUser(data?.data);
-        await SecureStore.setItemAsync("token", data?.data?.token);
+        await SecureStore.setItemAsync("token", data?.data?.access_token);
       },
       onError: async (data) => {
-        // console.log(data.response.status);
         Toast.show({
           type: "error",
-          // text1: data?.response?.status == 401 && "Invalid Credentials",
-          text2: "Invalid Credentials",
+          //@ts-ignore
+          text1: data?.response?.data?.message,
+          //  text2: "Invalid Credentials",
         });
       },
     }

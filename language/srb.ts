@@ -5,6 +5,8 @@ export const srb = {
   hello: "Zdravo!",
   password: "Lozinka",
   passwordConfirmation: "Ponovi Lozinku",
+  changePasswordTitle: `Promena \nlozinke`,
+  changePasswordSubtitle: "Unesite novu lozinku",
   forgotPassword: "Zaboravljena lozinka",
   forgotPasswordTitle: `Zaboravljena \nlozinka`,
   forgotPasswordSubtitle: "Unesite Email i pratite instrukcije",
@@ -13,6 +15,7 @@ export const srb = {
   logout: "Odjavi se",
   nickname: "Korisničko ime",
   congrats: "Čestitamo!",
+  done: "Potvrdi",
   bravo: "Bravo",
   language: "Jezik",
   forward: "Dalje",
@@ -25,4 +28,6 @@ export const srb = {
   register: "Registruj se",
   registerYourself: "Registruj se",
   createAcc: "Kreiraj nalog",
+  enterCodeFromEmail:
+    "Unesite verifikacioni kod koji je poslat na vašu email adresu",
 };

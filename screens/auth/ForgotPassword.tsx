@@ -19,14 +19,17 @@ import { color } from "../../variables/color";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useTranslation } from "react-i18next";
+import ResetCode from "./ResetCode";
+import { Formik } from "formik";
+import useEmailValidation from "../../hooks/validations/useEmailValidation";
 
 const { height } = Dimensions.get("screen");
 
 const ForgotPassword = () => {
-  const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
   const { t } = useTranslation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [isCodeOpen, setIsCodeOpen] = useState(false);
+  const EmailSchema = useEmailValidation();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -51,7 +54,6 @@ const ForgotPassword = () => {
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
-      //  behavior={Platform?.OS === "ios" ? "padding" : "height"}
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
       bounces={false}
@@ -62,22 +64,40 @@ const ForgotPassword = () => {
           style={{
             justifyContent: "space-between",
             flex: 1,
-
-            paddingBottom: insets.top ? insets.top + 10 : 30,
           }}
         >
           <Header
             title={t("forgotPasswordTitle")}
             subtitle={t("forgotPasswordSubtitle")}
           />
+          {isCodeOpen && <ResetCode setIsCodeOpen={setIsCodeOpen} />}
           <View style={styles.form}>
-            <View style={{ rowGap: 14 }}>
-              <InputField label="Email" />
-            </View>
-
-            <TouchableOpacity style={styles.mainCta}>
-              <Text style={styles.mainCtaText}>Reset</Text>
-            </TouchableOpacity>
+            <Formik
+              validationSchema={EmailSchema}
+              initialValues={{ email: "", password: "" }}
+              onSubmit={(values) => setIsCodeOpen(true)}
+            >
+              {(props) => (
+                <>
+                  <View style={{ rowGap: 14 }}>
+                    <InputField
+                      onChangeText={props.handleChange("email")}
+                      value={props.values.email}
+                      label="Email"
+                      error={props.errors.email}
+                      onBlur={props.handleBlur("email")}
+                      touched={props.touched.email}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    style={styles.mainCta}
+                    onPress={() => props.handleSubmit()}
+                  >
+                    <Text style={styles.mainCtaText}>Reset</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </Formik>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -86,7 +106,7 @@ const ForgotPassword = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    //  flex: 1,
+    flex: 1,
   },
   form: {
     padding: 20,

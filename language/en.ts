@@ -2,6 +2,8 @@ export const en = {
   requiredField: "Required Field",
   emailValid: "Email not valid",
   passwordLength: "Password is too short",
+  changePasswordTitle: `Change \npassword`,
+  changePasswordSubtitle: "Enter new password",
   hello: "Hello!",
   password: "Password",
   passwordConfirmation: "Repeat Password",
@@ -16,6 +18,7 @@ export const en = {
   language: "Language",
   forward: "Next",
   profile: "Profile",
+  done: "Done",
   changeLang: "Change Language",
   loginSubTitle: "Enter your email and password",
   loginTitle: `Login to \nyour account`,
@@ -24,4 +27,6 @@ export const en = {
   register: "Register",
   registerYourself: "Register",
   createAcc: "Create your account",
+  enterCodeFromEmail:
+    "Enter verification code that has been sent to your email",
 };

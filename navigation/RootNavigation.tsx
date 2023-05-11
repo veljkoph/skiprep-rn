@@ -5,26 +5,25 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import BottomTabs from "./BottomTabs/BottomTabs";
 import Drawer from "./DrawerScreen/Drawer";
 import Header from "./Header/Header";
-import useDrawerStore from "../store/useDrawerStore";
 import GuestStack from "./GuestNavigation/GuestStack";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const RootNavigation = () => {
   const { user } = useUserStore();
-
+  const { top } = useSafeAreaInsets();
   return (
     <NavigationContainer>
-      <SafeAreaProvider>
-        {user ? (
-          <>
-            <Drawer />
-            <Header />
-            <BottomTabs />
-          </>
-        ) : (
-          <GuestStack />
-        )}
-      </SafeAreaProvider>
+      {user ? (
+        <>
+          <Drawer />
+          <Header />
+          <BottomTabs />
+        </>
+      ) : (
+        <GuestStack />
+      )}
+      <Toast topOffset={top} visibilityTime={2000} />
     </NavigationContainer>
   );
 };

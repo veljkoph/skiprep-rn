@@ -17,6 +17,7 @@ export default function App() {
     "Lexend-Bold": require("./fonts/Lexend-Bold.ttf"),
     "Lexend-Black": require("./fonts/Lexend-Black.ttf"),
   });
+
   if (!loaded) return null;
 
   return (

@@ -21,26 +21,18 @@ import useLanguageStore from "../../store/useLanguageStore";
 import ChangeLanguage from "./ChangeLanguage";
 import { AuthStackParamList } from "../../navigation/GuestNavigation/GuestStack";
 import { Formik } from "formik";
+import * as yup from "yup";
 import useLoginValidation from "../../hooks/validations/useLoginValidation";
-import useLogin from "../../hooks/auth/useLogin";
+import usePasswordChangeValidation from "../../hooks/validations/usePasswordChangeValidation";
 const { height } = Dimensions.get("screen");
 
-const Login = () => {
+const ChangePassword = () => {
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
   const [langOpen, setlangOpen] = useState(false);
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const LoginSchema = useLoginValidation();
 
-  const test = {
-    a: "a",
-    b: "b",
-  };
-
-  //hook for login
-  const { mutate: login, isLoading } = useLogin();
-
-  //
+  const PasswordShema = usePasswordChangeValidation();
 
   return (
     <KeyboardAwareScrollView
@@ -60,7 +52,10 @@ const Login = () => {
             paddingBottom: insets.top ? insets.top + 10 : 30,
           }}
         >
-          <Header title={t("loginTitle")} subtitle={t("loginSubTitle")} />
+          <Header
+            title={t("changePasswordTitle")}
+            subtitle={t("changePasswordSubtitle")}
+          />
           <TouchableOpacity
             style={[styles.langBtn, { top: insets.top + 20 }]}
             onPress={() => setlangOpen(!langOpen)}
@@ -69,21 +64,13 @@ const Login = () => {
           </TouchableOpacity>
           <View style={styles.form}>
             <Formik
-              validationSchema={LoginSchema}
-              initialValues={{ email: "", password: "" }}
-              onSubmit={(values) => login(values)}
+              validationSchema={PasswordShema}
+              initialValues={{ confirmPassword: "", password: "" }}
+              onSubmit={(values) => console.log(values)}
             >
               {(props) => (
                 <>
                   <View style={{ rowGap: 14 }}>
-                    <InputField
-                      onChangeText={props.handleChange("email")}
-                      value={props.values.email}
-                      label="Email"
-                      error={props.errors.email}
-                      onBlur={props.handleBlur("email")}
-                      touched={props.touched.email}
-                    />
                     <InputField
                       label={t("password")}
                       password
@@ -93,19 +80,22 @@ const Login = () => {
                       onBlur={props.handleBlur("password")}
                       touched={props.touched.password}
                     />
+                    <InputField
+                      password
+                      onChangeText={props.handleChange("confirmPassword")}
+                      value={props.values.confirmPassword}
+                      label={t("passwordConfirmation")}
+                      error={props.errors.confirmPassword}
+                      onBlur={props.handleBlur("confirmPassword")}
+                      touched={props.touched.confirmPassword}
+                    />
                   </View>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate("ForgotPassword")}
-                  >
-                    <Text style={styles.forgotPassword}>
-                      {t("forgotPassword")}?
-                    </Text>
-                  </TouchableOpacity>
+
                   <TouchableOpacity
                     style={styles.mainCta}
                     onPress={() => props.handleSubmit()}
                   >
-                    <Text style={styles.mainCtaText}>{t("login")}</Text>
+                    <Text style={styles.mainCtaText}>{t("done")}</Text>
                   </TouchableOpacity>
                 </>
               )}
@@ -168,4 +158,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default ChangePassword;
