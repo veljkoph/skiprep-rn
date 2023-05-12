@@ -1,27 +1,27 @@
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
-import { useNavigation } from "@react-navigation/native";
+import * as SecureStore from "expo-secure-store";
 import { BASE_URL } from "@env";
+import useUserStore from "../../store/useUserStore";
 
 interface IRegister {
-  email: string;
-  name: string;
-  password: string;
-  //passwordConfirmation?: string;
+  id: number;
+  verification_code: string;
 }
 
-const useRegister = () => {
-  const navigation = useNavigation();
+const useVerify = () => {
+  const { setUser } = useUserStore();
 
   return useMutation(
-    (values: IRegister) => axios.post(`${BASE_URL}/register`, values),
+    (values: IRegister) => axios.post(`${BASE_URL}/verify`, values),
     {
       onSuccess: async (data) => {
-        console.log(data.data);
+        setUser(data?.data?.user);
+        await SecureStore.setItemAsync("token", data?.data?.access_token);
         Toast.show({
           type: "success",
-          text1: "You are registered",
+          text1: "You are verified",
         });
       },
       onError: async (data) => {
@@ -31,8 +31,9 @@ const useRegister = () => {
           text1: data?.response?.data?.message,
         });
       },
+      retry: 0,
     }
   );
 };
 
-export default useRegister;
+export default useVerify;

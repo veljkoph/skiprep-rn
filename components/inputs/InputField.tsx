@@ -11,6 +11,7 @@ import { color } from "../../variables/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 interface IInputField {
   password?: boolean;
   label: string;

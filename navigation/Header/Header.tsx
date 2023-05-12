@@ -30,9 +30,9 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: color.white,
+    // backgroundColor: color.white,
     paddingHorizontal: 10,
-    paddingVertical: 30,
+    paddingVertical: 20,
     alignItems: "flex-end",
   },
 });

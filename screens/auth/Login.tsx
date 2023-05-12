@@ -121,12 +121,15 @@ const Login = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      {langOpen && <ChangeLanguage setlangOpen={setlangOpen} />}
     </KeyboardAwareScrollView>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
+    backgroundColor: "#f3f3f3",
+    height: "100%",
   },
   form: {
     padding: 20,

@@ -4,6 +4,7 @@ import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";
 import useUserStore from "../../store/useUserStore";
+import { BASE_URL } from "@env";
 
 interface iLogin {
   email: string;
@@ -12,12 +13,10 @@ interface iLogin {
 
 const useLogin = () => {
   const { setUser } = useUserStore();
-  const navigation = useNavigation();
 
   return useMutation(
-    (values: iLogin) =>
-      axios.post(`http://192.168.0.111/ski/public/api/login`, values),
-    //{email:"email", password:'password"}
+    (values: iLogin) => axios.post(`${BASE_URL}/login`, values),
+
     {
       onSuccess: async (data) => {
         setUser(data?.data);
@@ -28,7 +27,6 @@ const useLogin = () => {
           type: "error",
           //@ts-ignore
           text1: data?.response?.data?.message,
-          //  text2: "Invalid Credentials",
         });
       },
     }

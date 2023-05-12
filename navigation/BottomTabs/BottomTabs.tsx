@@ -24,6 +24,7 @@ const BottomTabs = () => {
         headerStyle: {
           backgroundColor: "#fdfdfd",
         },
+
         headerRight: () => (
           <TouchableOpacity
             style={{ marginRight: 10 }}

@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
+
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { color } from "../../variables/color";
@@ -26,6 +26,7 @@ const DrawerItem = (props: IDrawerItem) => {
     setDrawer(!drawer);
     //@ts-ignore
     navigation.navigate(link);
+    console.log("123");
   };
 
   return (
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.primary,
     alignItems: "center",
     borderRadius: 3,
+    zIndex: 20,
   },
   text: {
     fontWeight: "300",

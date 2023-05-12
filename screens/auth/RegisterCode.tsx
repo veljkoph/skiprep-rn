@@ -23,14 +23,16 @@ import {
 } from "react-native-confirmation-code-field";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AuthStackParamList } from "../../navigation/GuestNavigation/GuestStack";
+import useVerify from "../../hooks/auth/useVerify";
 
 const { width, height } = Dimensions.get("screen");
 interface IChangeLanguage {
   setIsCodeOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  userId: number;
 }
 
-const ResetCode = (props: IChangeLanguage) => {
-  const { setIsCodeOpen } = props;
+const RegisterCode = (props: IChangeLanguage) => {
+  const { setIsCodeOpen, userId } = props;
   const { t } = useTranslation();
   const { setLanguage } = useLanguageStore();
   const [value, setValue] = useState("");
@@ -41,9 +43,18 @@ const ResetCode = (props: IChangeLanguage) => {
   });
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
 
+  const { mutate: verify } = useVerify();
+
   const submitHandler = () => {
     setIsCodeOpen(false);
-    navigation.navigate("ChangePassword");
+    {
+      value &&
+        userId &&
+        verify({
+          id: userId,
+          verification_code: value,
+        });
+    }
   };
 
   return (
@@ -90,7 +101,7 @@ const ResetCode = (props: IChangeLanguage) => {
               style={styles.btn}
               onPress={() => submitHandler()}
             >
-              <Text style={styles.btnText}>Reset</Text>
+              <Text style={styles.btnText}>{t("done")}</Text>
             </TouchableOpacity>
           </View>
         </Animated.View>
@@ -99,7 +110,7 @@ const ResetCode = (props: IChangeLanguage) => {
   );
 };
 
-export default ResetCode;
+export default RegisterCode;
 
 const styles = StyleSheet.create({
   container: {
@@ -109,7 +120,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
 
-    zIndex: 1,
+    zIndex: 10,
   },
   blur: {
     position: "absolute",
@@ -117,11 +128,10 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    zIndex: 10,
     justifyContent: "flex-end",
   },
   langContainer: {
-    height: "55%",
+    flex: 0.5,
     backgroundColor: color.white,
     width: "100%",
     borderTopLeftRadius: 20,
@@ -135,10 +145,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
-  closeMenu: {
-    height: "55%",
-    width: "100%",
-  },
+
   globe: {
     position: "absolute",
     left: "50%",

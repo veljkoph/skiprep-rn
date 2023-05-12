@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     left: 0,
     height: "100%",
     width: "100%",
-    backgroundColor: "",
-    zIndex: 10,
+
+    zIndex: 12,
   },
   blur: {
     position: "absolute",
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+
     justifyContent: "flex-end",
   },
   langContainer: {

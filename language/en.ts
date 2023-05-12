@@ -14,6 +14,11 @@ export const en = {
   nickname: "Nickname",
   login: "Login",
   logout: "Logout",
+  uSure: "Are you sure?",
+  yes: "Yes",
+  no: "No",
+  loggedOut: "You are logged out",
+
   bravo: "Bravo",
   language: "Language",
   forward: "Next",

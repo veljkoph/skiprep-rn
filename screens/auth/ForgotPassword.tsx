@@ -70,10 +70,10 @@ const ForgotPassword = () => {
             title={t("forgotPasswordTitle")}
             subtitle={t("forgotPasswordSubtitle")}
           />
-          {isCodeOpen && <ResetCode setIsCodeOpen={setIsCodeOpen} />}
+
           <View style={styles.form}>
             <Formik
-              validationSchema={EmailSchema}
+              //validationSchema={EmailSchema}
               initialValues={{ email: "", password: "" }}
               onSubmit={(values) => setIsCodeOpen(true)}
             >
@@ -101,6 +101,7 @@ const ForgotPassword = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      {isCodeOpen && <ResetCode setIsCodeOpen={setIsCodeOpen} />}
     </KeyboardAwareScrollView>
   );
 };

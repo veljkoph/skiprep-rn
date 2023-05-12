@@ -16,14 +16,14 @@ const RootNavigation = () => {
     <NavigationContainer>
       {user ? (
         <>
-          <Drawer />
           <Header />
           <BottomTabs />
+          <Drawer />
         </>
       ) : (
         <GuestStack />
       )}
-      <Toast topOffset={top} visibilityTime={2000} />
+      <Toast topOffset={top < 1 ? 20 : top} visibilityTime={2000} />
     </NavigationContainer>
   );
 };
