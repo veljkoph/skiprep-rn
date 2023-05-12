@@ -1,6 +1,7 @@
 import { create, SetState } from "zustand";
 import * as SecureStore from "expo-secure-store";
 import i18n from "../language/i18n";
+import { getLocales } from "expo-localization";
 
 interface LanguageStore {
   language: string | null;
@@ -21,9 +22,13 @@ const useLanguageStore = create<LanguageStore>((set) => ({
 (async () => {
   const language = await SecureStore.getItemAsync("lang");
   console.log(language, "from local");
+  const deviceLanguage = getLocales()[0].languageCode;
+  console.log(deviceLanguage, "device");
   // If the language is not in storage, set the default language
   useLanguageStore.getState().language = language || "sr";
-  i18n.changeLanguage(language ? language : "sr");
+  i18n.changeLanguage(
+    language ? language : deviceLanguage ? deviceLanguage : "srb"
+  );
 })();
 
 export default useLanguageStore;

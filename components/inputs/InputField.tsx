@@ -73,10 +73,9 @@ const InputField = ({
             width: 0,
             height: 1,
           },
-          shadowOpacity: 0.2,
+          shadowOpacity: 0.12,
           shadowRadius: 1.41,
-
-          elevation: 2,
+          elevation: 10,
         }}
         contentStyle={{
           color: "#020020",
