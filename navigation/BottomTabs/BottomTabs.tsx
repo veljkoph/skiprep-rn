@@ -1,5 +1,4 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -8,9 +7,9 @@ import Profile from "../../screens/profile/Profile";
 import Faq from "../../screens/faq/Faq";
 import Forum from "../../screens/forum/Forum";
 import { color } from "../../variables/color";
+import CourseStack from "../CourseStack/CourseStack";
 
 const TabNavigator = createBottomTabNavigator();
-const StackNavigator = createNativeStackNavigator();
 const ICON_SIZE = 29;
 
 const BottomTabs = () => {
@@ -47,10 +46,7 @@ const BottomTabs = () => {
         options={({ navigation }) => ({
           title: "Home",
           tabBarIcon: ({ focused, color, size }) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Home")}
-              //  style={{ color: focused ? "#f0ead2" : "#000" }}
-            >
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
               <Ionicons
                 color={color}
                 name={focused ? "home" : "home-outline"}
@@ -70,6 +66,22 @@ const BottomTabs = () => {
               <Ionicons
                 color={color}
                 name={focused ? "person-circle" : "person-circle-outline"}
+                size={ICON_SIZE}
+              />
+            </TouchableOpacity>
+          ),
+        })}
+      />
+      <TabNavigator.Screen
+        name="Courses"
+        component={CourseStack}
+        options={({ navigation }) => ({
+          title: "Courses",
+          tabBarIcon: ({ focused, color, size }) => (
+            <TouchableOpacity onPress={() => navigation.navigate("Courses")}>
+              <Ionicons
+                color={color}
+                name={focused ? "barbell" : "barbell-outline"}
                 size={ICON_SIZE}
               />
             </TouchableOpacity>

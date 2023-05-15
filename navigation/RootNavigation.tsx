@@ -14,7 +14,7 @@ const RootNavigation = () => {
   const { top } = useSafeAreaInsets();
   return (
     <NavigationContainer>
-      {user ? (
+      {!user ? (
         <>
           <Header />
           <BottomTabs />

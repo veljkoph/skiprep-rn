@@ -5,7 +5,6 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
-  Platform,
   Dimensions,
 } from "react-native";
 import React, { useState } from "react";
@@ -17,12 +16,12 @@ import { color } from "../../variables/color";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useTranslation } from "react-i18next";
-import useLanguageStore from "../../store/useLanguageStore";
 import ChangeLanguage from "./ChangeLanguage";
 import { AuthStackParamList } from "../../navigation/GuestNavigation/GuestStack";
 import { Formik } from "formik";
 import useLoginValidation from "../../hooks/validations/useLoginValidation";
 import useLogin from "../../hooks/auth/useLogin";
+import { ActivityIndicator } from "react-native-paper";
 const { height } = Dimensions.get("screen");
 
 const Login = () => {
@@ -55,7 +54,7 @@ const Login = () => {
       <TouchableWithoutFeedback>
         <View
           style={{
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             flex: 1,
             paddingBottom: insets.top ? insets.top + 10 : 30,
           }}
@@ -102,16 +101,34 @@ const Login = () => {
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={styles.mainCta}
+                    style={[
+                      styles.mainCta,
+                      {
+                        backgroundColor: isLoading
+                          ? color.secondary3
+                          : color.secondary,
+                      },
+                    ]}
                     onPress={() => props.handleSubmit()}
+                    disabled={isLoading}
                   >
-                    <Text style={styles.mainCtaText}>{t("login")}</Text>
+                    {isLoading ? (
+                      <ActivityIndicator size="small" color="white" />
+                    ) : (
+                      <Text style={styles.mainCtaText}>{t("login")}</Text>
+                    )}
                   </TouchableOpacity>
                 </>
               )}
             </Formik>
           </View>
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 20,
+            }}
+          >
             <Text style={styles.classicText}>{t("dontHaveAcc")}</Text>
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
               <Text style={styles.secondaryCtaText}>
@@ -135,7 +152,6 @@ const styles = StyleSheet.create({
     padding: 20,
     rowGap: 30,
     backgroundColor: "#f3f3f3",
-    flex: 1,
   },
   forgotPassword: {
     fontSize: 15,

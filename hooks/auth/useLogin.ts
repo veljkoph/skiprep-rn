@@ -29,6 +29,7 @@ const useLogin = () => {
           text1: data?.response?.data?.message,
         });
       },
+      retry: 0,
     }
   );
 };

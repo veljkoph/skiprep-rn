@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import ResetCode from "./ResetCode";
 import { Formik } from "formik";
 import useEmailValidation from "../../hooks/validations/useEmailValidation";
+import { ActivityIndicator } from "react-native-paper";
 
 const { height } = Dimensions.get("screen");
 
@@ -30,6 +31,7 @@ const ForgotPassword = () => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const EmailSchema = useEmailValidation();
+  const isLoading = false;
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -73,7 +75,7 @@ const ForgotPassword = () => {
 
           <View style={styles.form}>
             <Formik
-              //validationSchema={EmailSchema}
+              validationSchema={EmailSchema}
               initialValues={{ email: "", password: "" }}
               onSubmit={(values) => setIsCodeOpen(true)}
             >
@@ -90,10 +92,22 @@ const ForgotPassword = () => {
                     />
                   </View>
                   <TouchableOpacity
-                    style={styles.mainCta}
+                    style={[
+                      styles.mainCta,
+                      {
+                        backgroundColor: isLoading
+                          ? color.secondary3
+                          : color.secondary,
+                      },
+                    ]}
                     onPress={() => props.handleSubmit()}
+                    disabled={isLoading}
                   >
-                    <Text style={styles.mainCtaText}>Reset</Text>
+                    {isLoading ? (
+                      <ActivityIndicator size="small" color="white" />
+                    ) : (
+                      <Text style={styles.mainCtaText}>Reset</Text>
+                    )}
                   </TouchableOpacity>
                 </>
               )}

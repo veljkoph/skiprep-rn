@@ -62,25 +62,28 @@ const InputField = ({
         onChangeText={onChangeText}
         secureTextEntry={hideText ? true : false}
         outlineStyle={{
-          borderRadius: 5,
           borderColor: color.secondary,
           borderWidth: error && touched ? 1 : 0,
         }}
         style={{
           height: height < 700 ? 50 : 60,
+          borderRadius: 10,
+          backgroundColor: "#f3f3f3",
+        }}
+        contentStyle={{
+          color: "#020020",
+          fontSize: height < 700 ? 14 : 15,
+          fontFamily: "Lexend-Regular",
+          backgroundColor: "white",
           shadowColor: "#8a8a8a",
+          borderRadius: 10,
           shadowOffset: {
             width: 0,
             height: 1,
           },
           shadowOpacity: 0.12,
           shadowRadius: 1.41,
-          elevation: 10,
-        }}
-        contentStyle={{
-          color: "#020020",
-          fontSize: height < 700 ? 14 : 15,
-          fontFamily: "Lexend-Regular",
+          elevation: 1,
         }}
         activeOutlineColor="#001"
       />
@@ -106,6 +109,8 @@ export default InputField;
 const styles = StyleSheet.create({
   container: {
     position: "relative",
+    backgroundColor: "transparent",
+    borderRadius: 15,
   },
   btn: {
     position: "absolute",
@@ -114,5 +119,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "transparent",
   },
 });

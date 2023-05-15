@@ -24,6 +24,7 @@ export const srb = {
   language: "Jezik",
   forward: "Dalje",
   profile: "Profil",
+  weeks: "Nedelje",
   changeLang: "Promeni jezik",
   loginTitle: `Prijavi se \nna svoj nalog`,
   loginSubTitle: `Unesi email i lozinku`,

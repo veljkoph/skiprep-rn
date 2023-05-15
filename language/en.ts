@@ -18,6 +18,7 @@ export const en = {
   yes: "Yes",
   no: "No",
   loggedOut: "You are logged out",
+  weeks: "Weeks",
 
   bravo: "Bravo",
   language: "Language",
