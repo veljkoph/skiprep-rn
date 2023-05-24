@@ -16,7 +16,7 @@ const RootNavigation = () => {
     <NavigationContainer>
       {!user ? (
         <>
-          <Header />
+          {/* <Header /> */}
           <BottomTabs />
           <Drawer />
         </>

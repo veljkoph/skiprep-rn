@@ -8,6 +8,7 @@ import Faq from "../../screens/faq/Faq";
 import Forum from "../../screens/forum/Forum";
 import { color } from "../../variables/color";
 import CourseStack from "../CourseStack/CourseStack";
+import Header from "../Header/Header";
 
 const TabNavigator = createBottomTabNavigator();
 const ICON_SIZE = 29;
@@ -24,14 +25,6 @@ const BottomTabs = () => {
           backgroundColor: "#fdfdfd",
         },
 
-        headerRight: () => (
-          <TouchableOpacity
-            style={{ marginRight: 10 }}
-            onPress={() => alert("This is a button!")}
-          >
-            <Ionicons color="black" name={"menu"} size={ICON_SIZE} />
-          </TouchableOpacity>
-        ),
         tabBarStyle: {
           // height: 70,
           //  position: "absolute",
@@ -45,6 +38,8 @@ const BottomTabs = () => {
         component={Home}
         options={({ navigation }) => ({
           title: "Home",
+          header: () => <Header />,
+          headerShown: true,
           tabBarIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Home")}>
               <Ionicons
@@ -61,6 +56,8 @@ const BottomTabs = () => {
         component={Profile}
         options={({ navigation }) => ({
           title: "Profile",
+          header: () => <Header />,
+          headerShown: true,
           tabBarIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
               <Ionicons
@@ -76,6 +73,8 @@ const BottomTabs = () => {
         name="Courses"
         component={CourseStack}
         options={({ navigation }) => ({
+          header: () => <Header />,
+          headerShown: false,
           title: "Courses",
           tabBarIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Courses")}>

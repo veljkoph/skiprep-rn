@@ -15,8 +15,15 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import DrawerItem from "./DrawerItem";
 
 import Animated, {
+  FadeOutLeft,
+  SlideInRight,
   SlideOutLeft,
+  SlideOutRight,
   ZoomInLeft,
+  ZoomOut,
+  ZoomOutEasyDown,
+  ZoomOutLeft,
+  ZoomOutRight,
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
@@ -34,7 +41,7 @@ const Drawer = () => {
   const fadeIn = useAnimatedStyle(() => {
     return {
       opacity: drawer ? withTiming(1, { duration: 700 }) : 0,
-      borderRadius: drawer ? withTiming(0, { duration: 700 }) : 50,
+      borderRadius: drawer ? withTiming(0, { duration: 700 }) : 10,
 
       position: "absolute",
     };
@@ -43,11 +50,11 @@ const Drawer = () => {
   if (!drawer) return null;
   return (
     <Animated.View
-      entering={ZoomInLeft.duration(700)}
-      exiting={SlideOutLeft.duration(750)}
+      entering={SlideInRight.duration(700)}
+      exiting={SlideOutRight.duration(750)}
       style={[styles.container, fadeIn]}
     >
-      <StatusBar barStyle="light-content" />
+      <StatusBar />
       <View style={styles.menu}>
         {list.map((el) => (
           <DrawerItem key={el.id} {...el} />

@@ -21,8 +21,6 @@ import useLanguageStore from "../../store/useLanguageStore";
 import ChangeLanguage from "./ChangeLanguage";
 import { AuthStackParamList } from "../../navigation/GuestNavigation/GuestStack";
 import { Formik } from "formik";
-import * as yup from "yup";
-import useLoginValidation from "../../hooks/validations/useLoginValidation";
 import usePasswordChangeValidation from "../../hooks/validations/usePasswordChangeValidation";
 const { height } = Dimensions.get("screen");
 
@@ -42,7 +40,6 @@ const ChangePassword = () => {
       keyboardOpeningTime={10}
       extraScrollHeight={100}
     >
-      {langOpen && <ChangeLanguage setlangOpen={setlangOpen} />}
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback>
         <View
@@ -111,6 +108,7 @@ const ChangePassword = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      {langOpen && <ChangeLanguage setlangOpen={setlangOpen} />}
     </KeyboardAwareScrollView>
   );
 };

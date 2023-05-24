@@ -31,11 +31,6 @@ const Login = () => {
   const insets = useSafeAreaInsets();
   const LoginSchema = useLoginValidation();
 
-  const test = {
-    a: "a",
-    b: "b",
-  };
-
   //hook for login
   const { mutate: login, isLoading } = useLogin();
 
@@ -49,7 +44,7 @@ const Login = () => {
       keyboardOpeningTime={10}
       extraScrollHeight={100}
     >
-      {langOpen && <ChangeLanguage setlangOpen={setlangOpen} />}
+      {/* {langOpen && <ChangeLanguage setlangOpen={setlangOpen} />} */}
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback>
         <View
