@@ -35,4 +35,10 @@ export const en = {
   createAcc: "Create your account",
   enterCodeFromEmail:
     "Enter verification code that has been sent to your email",
+  difficulty: "Difficulty",
+  easy: "Easy",
+  medium: "Medium",
+  hard: "Hard",
+  error: "Error",
+  checkConnection: "Check connection",
 };

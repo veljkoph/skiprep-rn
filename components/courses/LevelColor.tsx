@@ -10,20 +10,28 @@ interface ColorMap {
 const Level = (props: IProps) => {
   const { level } = props;
 
-  console.log(level);
-
   const colors: ColorMap = {
-    1: "#22B690",
-    2: "#EBD325",
-    3: "#B62248",
-    4: "#B62248",
-    5: "#B62248",
+    1: "#4b974b",
+    2: "#e29b40",
+    3: "#750000",
+    4: "#ff0000",
+    5: "#f5cd30",
   };
 
   const color: string = colors[level];
 
   return (
-    <View style={[{ width: 3, height: "100%", backgroundColor: color }]}></View>
+    <View
+      style={[
+        {
+          width: 4,
+          height: "100%",
+          backgroundColor: color,
+          borderTopLeftRadius: 5,
+          borderBottomLeftRadius: 5,
+        },
+      ]}
+    ></View>
   );
 };
 

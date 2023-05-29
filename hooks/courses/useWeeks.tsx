@@ -20,8 +20,13 @@ const useWeeks = (id: number | undefined) =>
       Toast.show({
         type: "error",
         //@ts-ignore
-        text1: data?.response?.data?.message,
+        text1: data?.response?.data?.message
+          ? //@ts-ignore
+            data?.response?.data?.message
+          : "Check connection",
       });
     },
+    retry: false,
+    refetchOnReconnect: true,
   });
 export default useWeeks;

@@ -26,7 +26,6 @@ const DrawerItem = (props: IDrawerItem) => {
     setDrawer(!drawer);
     //@ts-ignore
     navigation.navigate(link);
-    console.log("123");
   };
 
   return (

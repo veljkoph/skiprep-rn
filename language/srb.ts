@@ -35,4 +35,10 @@ export const srb = {
   createAcc: "Kreiraj nalog",
   enterCodeFromEmail:
     "Unesite verifikacioni kod koji je poslat na vašu email adresu",
+  difficulty: "Težina",
+  easy: "Lako",
+  medium: "Srednje",
+  hard: "Teško",
+  error: "Greška",
+  checkConnection: "Proverite internet konekciju",
 };
