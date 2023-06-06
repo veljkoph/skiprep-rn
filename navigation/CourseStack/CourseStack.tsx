@@ -2,17 +2,17 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 //screens
 import Weeks from "../../screens/course/Weeks";
-import Days from "../../screens/course/Days";
-import Day from "../../screens/course/Day";
+import Trainings from "../../screens/course/Trainings";
+import Exercises from "../../screens/course/Exercises";
 import Header from "../Header/Header";
 
-export type AuthStackParamList = {
+export type CourseStackParamList = {
   Weeks: undefined;
-  Days: undefined;
-  Day: undefined;
+  Trainings: { weekId: number };
+  Exercises: { trainingId: number };
 };
 
-const Stack = createStackNavigator<AuthStackParamList>();
+const Stack = createStackNavigator<CourseStackParamList>();
 
 const CourseStack: React.FC = () => {
   return (
@@ -22,8 +22,12 @@ const CourseStack: React.FC = () => {
         component={Weeks}
         options={{ headerShown: true, header: () => <Header /> }}
       />
-      <Stack.Screen name="Days" component={Days} />
-      <Stack.Screen name="Day" component={Day} />
+      <Stack.Screen
+        name="Trainings"
+        component={Trainings}
+        options={{ headerShown: true, header: () => <Header /> }}
+      />
+      <Stack.Screen name="Exercises" component={Exercises} />
     </Stack.Navigator>
   );
 };

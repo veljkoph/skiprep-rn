@@ -7,25 +7,20 @@ import LevelName from "./LevelName";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { CourseStackParamList } from "../../navigation/CourseStack/CourseStack";
 
-interface IWeekProps {
+interface ITrainingProps {
   name: string;
-  active: number;
   level: string;
   id: number;
 }
 
-const Week = (props: IWeekProps) => {
-  const { name, active, level, id } = props;
+const Training = (props: ITrainingProps) => {
+  const { name, level, id } = props;
   const navigation = useNavigation<NavigationProp<CourseStackParamList>>();
 
   return (
     <TouchableOpacity
-      disabled={!active}
-      onPress={() => navigation.navigate("Trainings", { weekId: id })}
-      style={[
-        styles.container,
-        { backgroundColor: active ? "#fff" : color.disabled },
-      ]}
+      onPress={() => navigation.navigate("Exercises", { trainingId: id })}
+      style={[styles.container]}
     >
       <Level level={parseInt(level)} />
       <View style={styles.infoContainer}>
@@ -34,29 +29,22 @@ const Week = (props: IWeekProps) => {
       </View>
 
       <View style={styles.icon}>
-        {!active ? (
-          <Ionicons
-            color={color.black}
-            name={"lock-closed-outline"}
-            size={22}
-          />
-        ) : (
-          <Ionicons
-            color={color.secondary1}
-            name={"play-circle-outline"}
-            size={24}
-          />
-        )}
+        <Ionicons
+          color={color.secondary1}
+          name={"play-circle-outline"}
+          size={24}
+        />
       </View>
     </TouchableOpacity>
   );
 };
 
-export default Week;
+export default Training;
 
 const styles = StyleSheet.create({
   container: {
     borderColor: color.primary,
+    backgroundColor: "#fff",
     borderRadius: 5,
     justifyContent: "flex-start",
     flexDirection: "row",

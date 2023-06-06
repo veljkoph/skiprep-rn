@@ -11,19 +11,16 @@ import {
 import useWeeks from "../../hooks/courses/useWeeks";
 import Week from "../../components/courses/Week";
 import { useTranslation } from "react-i18next";
-import Title from "../../components/courses/Title";
-import Loader from "../../components/global/Loader";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { color } from "../../variables/color";
 import useHeaderStore from "../../store/useHeaderStore";
 
 const Weeks = () => {
-  const { data: weeks, isLoading, refetch } = useWeeks(3);
+  const { data: weeks, isLoading } = useWeeks(3);
   const { t } = useTranslation();
   const flatListRef = useRef<FlatList>(null);
   const prevOffsetYRef = useRef<number>(0);
   const [hasTriggeredAction, setHasTriggeredAction] = useState<boolean>(false);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
   const { header, setHeader } = useHeaderStore();
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
