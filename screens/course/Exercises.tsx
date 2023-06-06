@@ -18,6 +18,7 @@ const Exercises = (props: IExerciseProps) => {
   const { route } = props;
   const { data: trainings, isLoading } = useExercise(route?.params?.trainingId);
 
+  console.log(trainings);
   if (isLoading) {
     // Render a spinner or loading indicator while the data is loading
     return (

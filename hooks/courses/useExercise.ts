@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
+import axios from "axios";
+import { BASE_URL } from "@env";
+import * as SecureStore from "expo-secure-store";
 import { fetchExercise } from "../../services/courses/exerciseService";
 
 const useExercise = (id: number) =>
-  useQuery([`trainigns/${id}`], () => fetchExercise(id), {
+  useQuery([`exercises/${id}`], () => fetchExercise(id), {
     onError: async (data) => {
       Toast.show({
         type: "error",

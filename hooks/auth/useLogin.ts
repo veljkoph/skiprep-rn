@@ -2,7 +2,6 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-toast-message";
-import { useNavigation } from "@react-navigation/native";
 import useUserStore from "../../store/useUserStore";
 import { BASE_URL } from "@env";
 
