@@ -1,0 +1,89 @@
+import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BlurView } from "expo-blur";
+import TabItem from "./TabItem";
+import { useNavigation } from "@react-navigation/native";
+import { color } from "../../variables/color";
+
+export default function BottomTabs() {
+  const insets = useSafeAreaInsets();
+
+  const [activeRoute, setActiveRoute] = useState(
+    //@ts-ignore
+    "Home"
+  );
+
+  const tabItems = [
+    {
+      to: "Home",
+      name: "Home",
+      id: 1,
+      icon: "home-outline",
+      color: color.primary,
+      bgColor: color.primaryLight,
+    },
+    {
+      to: "Courses",
+      name: "Workout",
+      id: 2,
+      icon: "barbell-outline",
+      color: color.secondary,
+      bgColor: color.secondaryLight,
+    },
+    {
+      to: "Profile",
+      name: "Profile",
+      id: 3,
+      icon: "person-circle-outline",
+      color: "#188368",
+      bgColor: color.secondary1Light,
+    },
+    {
+      to: "Messages",
+      name: "Messages",
+      id: 4,
+      icon: "mail-outline",
+      bgColor: color.secondary2Light,
+      color: "#a08e0f",
+    },
+  ];
+
+  return (
+    <BlurView
+      intensity={1}
+      style={[
+        styles.container,
+        {
+          height: insets.bottom + 50,
+          alignItems: insets.bottom > 0 ? "flex-start" : "center",
+          paddingTop: insets.bottom > 0 ? 10 : 0,
+        },
+      ]}
+      tint="dark"
+    >
+      {tabItems.map((item) => (
+        <TabItem
+          {...item}
+          key={item.id}
+          setActiveRoute={setActiveRoute}
+          activeRoute={activeRoute}
+        />
+      ))}
+    </BlurView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(255, 255, 255, 1)",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    zIndex: 0,
+  },
+});

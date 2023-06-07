@@ -8,6 +8,8 @@ import Week from "../../components/courses/Week";
 import Training from "../../components/courses/Training";
 import { ActivityIndicator } from "react-native-paper";
 import useExercise from "../../hooks/courses/useExercise";
+import { useTranslation } from "react-i18next";
+import Exercise from "../../components/courses/Exercise";
 type ExercisesProp = RouteProp<CourseStackParamList, "Exercises">;
 
 interface IExerciseProps {
@@ -17,8 +19,8 @@ interface IExerciseProps {
 const Exercises = (props: IExerciseProps) => {
   const { route } = props;
   const { data: trainings, isLoading } = useExercise(route?.params?.trainingId);
+  const { t } = useTranslation();
 
-  console.log(trainings);
   if (isLoading) {
     // Render a spinner or loading indicator while the data is loading
     return (
@@ -27,15 +29,18 @@ const Exercises = (props: IExerciseProps) => {
       </View>
     );
   }
-
+  //VEZBEE
   return (
     <View>
       <FlatList
         data={trainings}
-        ListHeaderComponent={() => <Text style={styles.title}>Trainings</Text>}
-        renderItem={({ item }) => <Training {...item} />}
+        ListHeaderComponent={() => (
+          <Text style={styles.title}>{t("exercises")}</Text>
+        )}
+        renderItem={({ item }) => <Exercise {...item} />}
         keyExtractor={(item) => item.id.toString()}
         scrollEventThrottle={16}
+        numColumns={2}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
         alwaysBounceHorizontal={false}

@@ -41,4 +41,6 @@ export const en = {
   hard: "Hard",
   error: "Error",
   checkConnection: "Check connection",
+  exercises: "Exercises",
+  trainings: "Trainings",
 };

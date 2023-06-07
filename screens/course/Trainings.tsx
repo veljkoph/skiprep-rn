@@ -7,6 +7,7 @@ import { color } from "../../variables/color";
 import Week from "../../components/courses/Week";
 import Training from "../../components/courses/Training";
 import { ActivityIndicator } from "react-native-paper";
+import { useTranslation } from "react-i18next";
 type TrainingsRouteProp = RouteProp<CourseStackParamList, "Trainings">;
 
 interface ITrainingsProps {
@@ -16,7 +17,7 @@ interface ITrainingsProps {
 const Trainings = (props: ITrainingsProps) => {
   const { route } = props;
   const { data: trainings, isLoading } = useTrainings(route?.params?.weekId);
-
+  const { t } = useTranslation();
   if (isLoading) {
     // Render a spinner or loading indicator while the data is loading
     return (
@@ -30,7 +31,9 @@ const Trainings = (props: ITrainingsProps) => {
     <View>
       <FlatList
         data={trainings}
-        ListHeaderComponent={() => <Text style={styles.title}>Trainings</Text>}
+        ListHeaderComponent={() => (
+          <Text style={styles.title}>{t("trainings")}</Text>
+        )}
         renderItem={({ item }) => <Training {...item} />}
         keyExtractor={(item) => item.id.toString()}
         scrollEventThrottle={16}

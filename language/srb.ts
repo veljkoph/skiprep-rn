@@ -41,4 +41,6 @@ export const srb = {
   hard: "Teško",
   error: "Greška",
   checkConnection: "Proverite internet konekciju",
+  exercises: "Vežbe",
+  trainings: "Treninzi",
 };

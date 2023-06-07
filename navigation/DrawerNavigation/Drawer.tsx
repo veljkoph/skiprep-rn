@@ -1,5 +1,5 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "../../screens/home/Home";
@@ -7,40 +7,41 @@ import Profile from "../../screens/profile/Profile";
 import Faq from "../../screens/faq/Faq";
 import Forum from "../../screens/forum/Forum";
 import { color } from "../../variables/color";
-import CourseStack from "../CourseStack/CourseStack";
+import CourseStack, { CourseStackParamList } from "../CourseStack/CourseStack";
 import Header from "../Header/Header";
+import Messages from "../../screens/messages/Messages";
 
-const TabNavigator = createBottomTabNavigator();
+export type DrawerStackParamList = {
+  Home: undefined;
+  Profile: undefined;
+  Courses: CourseStackParamList;
+  Forum: undefined;
+  Faq: undefined;
+  Messages: undefined;
+};
+const Drawer = createDrawerNavigator<DrawerStackParamList>();
 const ICON_SIZE = 29;
 
-const BottomTabs = () => {
+const DrawerNavigator = () => {
   return (
-    <TabNavigator.Navigator
+    <Drawer.Navigator
       screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: color.white,
-        tabBarInactiveTintColor: color.secondary3,
-        tabBarShowLabel: false,
-        headerStyle: {
-          backgroundColor: "#fdfdfd",
-        },
-
-        tabBarStyle: {
-          // height: 70,
-          //  position: "absolute",
+        drawerActiveTintColor: color.white,
+        drawerInactiveTintColor: color.secondary3,
+        drawerStyle: {
           backgroundColor: color.primary,
-          shadowColor: "transparent",
+          zIndex: 222,
         },
       }}
     >
-      <TabNavigator.Screen
+      <Drawer.Screen
         name="Home"
         component={Home}
         options={({ navigation }) => ({
           title: "Home",
           header: () => <Header />,
           headerShown: true,
-          tabBarIcon: ({ focused, color, size }) => (
+          drawerIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Home")}>
               <Ionicons
                 color={color}
@@ -51,14 +52,14 @@ const BottomTabs = () => {
           ),
         })}
       />
-      <TabNavigator.Screen
+      <Drawer.Screen
         name="Profile"
         component={Profile}
         options={({ navigation }) => ({
           title: "Profile",
           header: () => <Header />,
           headerShown: true,
-          tabBarIcon: ({ focused, color, size }) => (
+          drawerIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
               <Ionicons
                 color={color}
@@ -69,42 +70,38 @@ const BottomTabs = () => {
           ),
         })}
       />
-      <TabNavigator.Screen
+      <Drawer.Screen
         name="Courses"
         component={CourseStack}
         options={({ navigation }) => ({
+          title: "",
+          drawerItemStyle: { display: "none" },
           header: () => <Header />,
           headerShown: false,
-          title: "Courses",
-          tabBarIcon: ({ focused, color, size }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("Courses")}>
+        })}
+      />
+      <Drawer.Screen
+        name="Forum"
+        component={Forum}
+        options={({ navigation }) => ({
+          title: "Forum",
+          drawerIcon: ({ focused, color, size }) => (
+            <TouchableOpacity onPress={() => navigation.navigate("Forum")}>
               <Ionicons
                 color={color}
-                name={focused ? "barbell" : "barbell-outline"}
+                name={focused ? "chatbox" : "chatbox-outline"}
                 size={ICON_SIZE}
               />
             </TouchableOpacity>
           ),
         })}
       />
-      <TabNavigator.Screen
-        name="Forum"
-        component={Forum}
-        options={({ navigation }) => ({
-          title: "Forum",
-
-          tabBarButton: () => null,
-        })}
-      />
-      <TabNavigator.Screen
+      <Drawer.Screen
         name="Faq"
         component={Faq}
         options={({ navigation }) => ({
           title: "Faq",
-
-          tabBarButton: () => null,
-
-          tabBarIcon: ({ focused, color, size }) => (
+          drawerIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Faq")}>
               <Ionicons
                 color={color}
@@ -115,7 +112,24 @@ const BottomTabs = () => {
           ),
         })}
       />
-    </TabNavigator.Navigator>
+      <Drawer.Screen
+        name="Messages"
+        component={Messages}
+        options={({ navigation }) => ({
+          title: "Messages",
+          drawerItemStyle: { display: "none" },
+          drawerIcon: ({ focused, color, size }) => (
+            <TouchableOpacity onPress={() => navigation.navigate("Faq")}>
+              <Ionicons
+                color={color}
+                name={focused ? "alert-circle" : "alert-circle-outline"}
+                size={ICON_SIZE}
+              />
+            </TouchableOpacity>
+          ),
+        })}
+      />
+    </Drawer.Navigator>
   );
 };
-export default BottomTabs;
+export default DrawerNavigator;
