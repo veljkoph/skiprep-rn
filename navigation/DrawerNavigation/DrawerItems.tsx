@@ -10,6 +10,7 @@ import { color } from "../../variables/color";
 import CourseStack, { CourseStackParamList } from "../CourseStack/CourseStack";
 import Header from "../Header/Header";
 import Messages from "../../screens/messages/Messages";
+import DrawerContent from "./DrawerContent";
 
 export type DrawerStackParamList = {
   Home: undefined;
@@ -22,15 +23,15 @@ export type DrawerStackParamList = {
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 const ICON_SIZE = 29;
 
-const DrawerNavigator = () => {
+const DrawerItems = () => {
   return (
     <Drawer.Navigator
+      drawerContent={(props) => <DrawerContent {...props} />}
       screenOptions={{
-        drawerActiveTintColor: color.white,
-        drawerInactiveTintColor: color.secondary3,
+        drawerActiveTintColor: color.secondary,
+        drawerInactiveTintColor: color.black,
         drawerStyle: {
-          backgroundColor: color.primary,
-          zIndex: 222,
+          zIndex: 10,
         },
       }}
     >
@@ -41,6 +42,7 @@ const DrawerNavigator = () => {
           title: "Home",
           header: () => <Header />,
           headerShown: true,
+          drawerItemStyle: { display: "none" },
           drawerIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Home")}>
               <Ionicons
@@ -57,6 +59,7 @@ const DrawerNavigator = () => {
         component={Profile}
         options={({ navigation }) => ({
           title: "Profile",
+          drawerItemStyle: { display: "none" },
           header: () => <Header />,
           headerShown: true,
           drawerIcon: ({ focused, color, size }) => (
@@ -132,4 +135,4 @@ const DrawerNavigator = () => {
     </Drawer.Navigator>
   );
 };
-export default DrawerNavigator;
+export default DrawerItems;

@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import React, { useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { color } from "../../variables/color";
 import useDrawerStore from "../../store/useDrawerStore";
@@ -17,10 +17,13 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import useHeaderStore from "../../store/useHeaderStore";
+import { DrawerStackParamList } from "../DrawerNavigation/DrawerItems";
+import { DrawerActions } from "@react-navigation/native";
 
 const Header = () => {
-  const headerHeight = useSharedValue(60);
+  const headerHeight = useSharedValue(45);
   const opacity = useSharedValue(1);
+  const navigation = useNavigation<NavigationProp<DrawerStackParamList>>();
   const { setDrawer, drawer } = useDrawerStore();
   const { header } = useHeaderStore();
 
@@ -34,7 +37,7 @@ const Header = () => {
       });
     }
     if (header) {
-      headerHeight.value = withTiming(60, {
+      headerHeight.value = withTiming(45, {
         duration: 550,
       });
       opacity.value = withTiming(1, {
@@ -53,8 +56,10 @@ const Header = () => {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Animated.View style={[styles.container, headerStyle]}>
-        <TouchableOpacity onPress={() => ""}>
-          <Ionicons color="black" name={"mail-outline"} size={28} />
+        <TouchableOpacity
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        >
+          <Ionicons color="black" name={"menu"} size={32} />
         </TouchableOpacity>
         <Animated.Text style={styles.text}>SKIPREP</Animated.Text>
         <TouchableOpacity onPress={() => setDrawer(!drawer)}>

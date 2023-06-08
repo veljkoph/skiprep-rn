@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import TabItem from "./TabItem";
-import { useNavigation } from "@react-navigation/native";
 import { color } from "../../variables/color";
 
 export default function BottomTabs() {

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { DrawerStackParamList } from "../DrawerNavigation/Drawer";
+import { DrawerStackParamList } from "../DrawerNavigation/DrawerItems";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Animated, {
   FadeIn,
@@ -12,7 +12,6 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { color } from "../../variables/color";
 
 interface ITabItem {
   to: any;
