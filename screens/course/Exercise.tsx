@@ -9,7 +9,6 @@ interface IExerciseProps {
   route: ExerciseProp;
 }
 const Exercise = (props: IExerciseProps) => {
-  console.log(props);
   return (
     <View>
       <Text>Exercise</Text>

@@ -19,7 +19,7 @@ export const en = {
   no: "No",
   loggedOut: "You are logged out",
   weeks: "Weeks",
-
+  sex: "Sex",
   bravo: "Bravo",
   language: "Language",
   forward: "Next",
@@ -43,4 +43,5 @@ export const en = {
   checkConnection: "Check connection",
   exercises: "Exercises",
   trainings: "Trainings",
+  age: "Age",
 };

@@ -43,4 +43,6 @@ export const srb = {
   checkConnection: "Proverite internet konekciju",
   exercises: "Vežbe",
   trainings: "Treninzi",
+  sex: "Pol",
+  age: "Starost",
 };

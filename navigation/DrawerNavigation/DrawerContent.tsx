@@ -31,7 +31,7 @@ const DrawerContent = (props: any) => {
           paddingHorizontal: 20,
         }}
       >
-        <TouchableOpacity style={{ paddingVertical: 4 }}>
+        {/* <TouchableOpacity style={{ paddingVertical: 4 }}>
           <View
             style={{
               flexDirection: "row",
@@ -52,7 +52,7 @@ const DrawerContent = (props: any) => {
               {t("logout")}
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );

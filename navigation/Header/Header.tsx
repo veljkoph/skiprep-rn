@@ -1,4 +1,5 @@
 import {
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -13,7 +14,6 @@ import useDrawerStore from "../../store/useDrawerStore";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
 import useHeaderStore from "../../store/useHeaderStore";
@@ -61,9 +61,15 @@ const Header = () => {
         >
           <Ionicons color="black" name={"menu"} size={32} />
         </TouchableOpacity>
-        <Animated.Text style={styles.text}>SKIPREP</Animated.Text>
+        <Image
+          source={require("../../assets/logo/textLogo.png")}
+          style={styles.logo}
+        />
         <TouchableOpacity onPress={() => setDrawer(!drawer)}>
-          <Ionicons color="black" name={"menu"} size={32} />
+          <Image
+            style={styles.icon}
+            source={require("../../assets/icons/bell.png")}
+          />
         </TouchableOpacity>
       </Animated.View>
     </SafeAreaView>
@@ -98,5 +104,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Lexend-Medium",
     textTransform: "uppercase",
+  },
+  icon: {
+    height: 28,
+    aspectRatio: 1,
+  },
+  logo: {
+    width: 120,
+    aspectRatio: 1,
+    resizeMode: "contain",
   },
 });
