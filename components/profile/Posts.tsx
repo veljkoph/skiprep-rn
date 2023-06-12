@@ -1,5 +1,14 @@
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
+import { color } from "../../variables/color";
+
 const { width } = Dimensions.get("screen");
 const posts = [
   {
@@ -23,6 +32,9 @@ const posts = [
 const Posts = () => {
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.addPost}>
+        <Image source={require("../../assets/icons/add.png")} />
+      </TouchableOpacity>
       {posts.map((post) => (
         <Image style={styles.post} source={{ uri: post.img }} key={post.id} />
       ))}
@@ -42,6 +54,14 @@ const styles = StyleSheet.create({
     width: width / 3 - 2,
     height: width / 3 - 2,
     resizeMode: "cover",
+    margin: 1,
+  },
+  addPost: {
+    width: width / 3 - 2,
+    height: width / 3 - 2,
+    backgroundColor: color.white,
+    alignItems: "center",
+    justifyContent: "center",
     margin: 1,
   },
 });

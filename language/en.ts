@@ -44,4 +44,9 @@ export const en = {
   exercises: "Exercises",
   trainings: "Trainings",
   age: "Age",
+  editProfile: "Edit profile",
+  Home: "Home",
+  Workout: "Workout",
+  Profile: "Profile",
+  Messages: "Messages",
 };

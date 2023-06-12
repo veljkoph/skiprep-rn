@@ -67,7 +67,7 @@ const Profile = () => {
           </View>
         </View>
         <TouchableOpacity style={styles.editBtn}>
-          <Text style={styles.editBtnText}>Edit profile</Text>
+          <Text style={styles.editBtnText}>{t("editProfile")}</Text>
         </TouchableOpacity>
       </View>
       <Posts />
@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
     fontFamily: "Lexend-Bold",
   },
   name: {
-    color: "#188368",
+    color: color.black,
     fontSize: 18,
     fontFamily: "Lexend-Bold",
     textAlign: "center",
   },
   email: {
-    color: "#188368",
+    color: color.black,
     fontSize: 14,
     fontFamily: "Lexend-Regular",
     textAlign: "center",

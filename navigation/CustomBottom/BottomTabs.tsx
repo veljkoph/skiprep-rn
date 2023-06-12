@@ -4,10 +4,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import TabItem from "./TabItem";
 import { color } from "../../variables/color";
+import { useTranslation } from "react-i18next";
 
 export default function BottomTabs() {
   const insets = useSafeAreaInsets();
-
+  const { t } = useTranslation();
   const [activeRoute, setActiveRoute] = useState(
     //@ts-ignore
     "Home"
@@ -16,7 +17,7 @@ export default function BottomTabs() {
   const tabItems = [
     {
       to: "Home",
-      name: "Home",
+      name: t("Home"),
       id: 1,
       icon: "home-outline",
       color: color.primary,
@@ -24,7 +25,7 @@ export default function BottomTabs() {
     },
     {
       to: "Courses",
-      name: "Workout",
+      name: t("Workout"),
       id: 2,
       icon: "barbell-outline",
       color: color.secondary,
@@ -32,7 +33,7 @@ export default function BottomTabs() {
     },
     {
       to: "Profile",
-      name: "Profile",
+      name: t("Profile"),
       id: 3,
       icon: "person-circle-outline",
       color: "#188368",
@@ -40,7 +41,7 @@ export default function BottomTabs() {
     },
     {
       to: "Messages",
-      name: "Messages",
+      name: t("Messages"),
       id: 4,
       icon: "mail-outline",
       bgColor: color.secondary2Light,

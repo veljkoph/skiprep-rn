@@ -45,4 +45,9 @@ export const srb = {
   trainings: "Treninzi",
   sex: "Pol",
   age: "Starost",
+  editProfile: "Izmeni profil",
+  Home: "Početna",
+  Workout: "Trening",
+  Profile: "Profil",
+  Messages: "Poruke",
 };
