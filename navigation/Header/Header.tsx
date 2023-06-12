@@ -20,7 +20,11 @@ import useHeaderStore from "../../store/useHeaderStore";
 import { DrawerStackParamList } from "../DrawerNavigation/DrawerItems";
 import { DrawerActions } from "@react-navigation/native";
 
-const Header = () => {
+interface IHeaderProps {
+  url: any;
+}
+
+const Header = ({ url }: IHeaderProps) => {
   const headerHeight = useSharedValue(45);
   const opacity = useSharedValue(1);
   const navigation = useNavigation<NavigationProp<DrawerStackParamList>>();
@@ -61,10 +65,7 @@ const Header = () => {
         >
           <Ionicons color="black" name={"menu"} size={32} />
         </TouchableOpacity>
-        <Image
-          source={require("../../assets/logo/textLogo.png")}
-          style={styles.logo}
-        />
+        <Image source={url} style={styles.logo} />
         <TouchableOpacity onPress={() => setDrawer(!drawer)}>
           <Image
             style={styles.icon}

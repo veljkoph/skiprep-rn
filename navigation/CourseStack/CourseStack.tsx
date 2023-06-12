@@ -38,22 +38,37 @@ const CourseStack: React.FC = () => {
       <Stack.Screen
         name="Weeks"
         component={Weeks}
-        options={{ headerShown: true, header: () => <Header /> }}
+        options={{
+          headerShown: true,
+          header: () => (
+            <Header url={require("../../assets/logo/textLogoRed.png")} />
+          ),
+        }}
       />
       <Stack.Screen
         name="Trainings"
         component={Trainings}
-        options={{ headerShown: true, header: () => <Header /> }}
+        options={{
+          headerShown: true,
+          header: () => (
+            <Header url={require("../../assets/logo/textLogoRed.png")} />
+          ),
+        }}
       />
       <Stack.Screen
         name="Exercises"
         component={Exercises}
-        options={{ headerShown: true, header: () => <Header /> }}
+        options={{
+          headerShown: true,
+          header: () => (
+            <Header url={require("../../assets/logo/textLogoRed.png")} />
+          ),
+        }}
       />
       <Stack.Screen
         name="Exercise"
         component={Exercise}
-        options={{ headerShown: true, header: () => <Header /> }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

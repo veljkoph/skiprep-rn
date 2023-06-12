@@ -40,7 +40,9 @@ const DrawerItems = () => {
         component={Home}
         options={({ navigation }) => ({
           title: "Home",
-          header: () => <Header />,
+          header: () => (
+            <Header url={require("../../assets/logo/textLogoBlue.png")} />
+          ),
           headerShown: true,
           drawerItemStyle: { display: "none" },
           drawerIcon: ({ focused, color, size }) => (
@@ -60,7 +62,9 @@ const DrawerItems = () => {
         options={({ navigation }) => ({
           title: "Profile",
           drawerItemStyle: { display: "none" },
-          header: () => <Header />,
+          header: () => (
+            <Header url={require("../../assets/logo/textLogoGreen.png")} />
+          ),
           headerShown: true,
           drawerIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
@@ -79,7 +83,9 @@ const DrawerItems = () => {
         options={({ navigation }) => ({
           title: "",
           drawerItemStyle: { display: "none" },
-          header: () => <Header />,
+          header: () => (
+            <Header url={require("../../assets/logo/textLogoRed.png")} />
+          ),
           headerShown: false,
         })}
       />
@@ -121,6 +127,9 @@ const DrawerItems = () => {
         options={({ navigation }) => ({
           title: "Messages",
           drawerItemStyle: { display: "none" },
+          header: () => (
+            <Header url={require("../../assets/logo/textLogoYellow.png")} />
+          ),
           drawerIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Faq")}>
               <Ionicons
