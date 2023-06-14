@@ -1,17 +1,11 @@
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import { color } from "../../variables/color";
 import useDrawerStore from "../../store/useDrawerStore";
 import Animated, {
+  FadeIn,
+  FadeOut,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -19,6 +13,7 @@ import Animated, {
 import useHeaderStore from "../../store/useHeaderStore";
 import { DrawerStackParamList } from "../DrawerNavigation/DrawerItems";
 import { DrawerActions } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface IHeaderProps {
   url: any;
@@ -31,6 +26,7 @@ const Header = ({ url }: IHeaderProps) => {
   const { setDrawer, drawer } = useDrawerStore();
   const { header } = useHeaderStore();
 
+  const insets = useSafeAreaInsets();
   useEffect(() => {
     if (!header) {
       headerHeight.value = withTiming(1, {
@@ -58,32 +54,46 @@ const Header = ({ url }: IHeaderProps) => {
   });
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
-      <Animated.View style={[styles.container, headerStyle]}>
-        <TouchableOpacity
-          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-        >
-          <Ionicons color="black" name={"menu"} size={32} />
-        </TouchableOpacity>
-        <Image source={url} style={styles.logo} />
-        <TouchableOpacity onPress={() => setDrawer(!drawer)}>
-          <Image
-            style={styles.icon}
-            source={require("../../assets/icons/bell.png")}
-          />
-        </TouchableOpacity>
-      </Animated.View>
-    </SafeAreaView>
+    <Animated.View
+      entering={FadeIn}
+      exiting={FadeOut}
+      style={[
+        styles.container,
+        {
+          height: insets.top + (insets.top < 25 ? 45 : 35),
+          alignItems: "flex-end",
+        },
+      ]}
+    >
+      <TouchableOpacity
+        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+      >
+        <Image
+          style={styles.icon}
+          source={require("../../assets/icons/menu.png")}
+        />
+      </TouchableOpacity>
+      <Image source={url} style={styles.logo} />
+      <TouchableOpacity onPress={() => setDrawer(!drawer)}>
+        <Image
+          style={styles.iconBell}
+          source={require("../../assets/icons/bell.png")}
+        />
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 
 export default Header;
 
 const styles = StyleSheet.create({
-  safeContainer: {
+  container: {
     backgroundColor: "#FFF",
-    borderBottomColor: color.secondary3,
-    borderBottomWidth: 0,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
     shadowColor: color.secondary3,
     shadowOffset: {
       width: 0,
@@ -92,14 +102,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.43,
     shadowRadius: 1.2,
     elevation: 1,
-  },
-  container: {
-    backgroundColor: "#FFF",
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
   },
   text: {
     fontSize: 18,
@@ -110,9 +112,13 @@ const styles = StyleSheet.create({
     height: 28,
     aspectRatio: 1,
   },
+  iconBell: {
+    height: 26,
+    aspectRatio: 1,
+  },
   logo: {
     width: 120,
-    aspectRatio: 1,
+    height: 25,
     resizeMode: "contain",
   },
 });
