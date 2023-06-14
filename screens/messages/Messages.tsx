@@ -4,25 +4,34 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { View } from "react-native";
-import { GiftedChat, IMessage } from "react-native-gifted-chat";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { GiftedChat, IMessage, InputToolbar } from "react-native-gifted-chat";
 import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import renderBubble from "../../components/messages/Bubble";
 import useMessages from "../../hooks/messages/useMessages";
 import Loader from "../../components/global/Loader";
 import useSendMessage from "../../hooks/messages/useSendMessage";
+import LoadEarlier from "../../components/messages/LoadEarlier";
+import useKeyboardStatus from "../../hooks/layout/useKeyboardStatus";
 
 export default function Chat() {
-  const { data: oldMessages, isLoading } = useMessages(1);
+  const {
+    data: oldMessages,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useMessages(2);
+  const isKeyboardOpen = useKeyboardStatus();
+  console.log(isKeyboardOpen);
   const { mutate: sendMessage } = useSendMessage();
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
 
+  const insets = useSafeAreaInsets();
   useLayoutEffect(() => {
     if (oldMessages) {
-      setMessages(oldMessages);
+      setMessages(oldMessages?.pages?.map((page) => page?.data).flat());
     }
   }, [oldMessages]);
 
@@ -42,13 +51,24 @@ export default function Chat() {
   if (isLoading) return <Loader />;
 
   return (
-    <View style={{ flex: 1, marginBottom: insets.bottom + 50 }}>
+    <View
+      style={{
+        flex: 1,
+        marginBottom: isKeyboardOpen ? 0 : insets.bottom + 50,
+        paddingTop: 10,
+        justifyContent: "space-between",
+      }}
+    >
       <GiftedChat
         messages={messages}
+        isLoadingEarlier={isFetchingNextPage}
         showAvatarForEveryMessage={true}
         showUserAvatar={false}
         renderBubble={renderBubble}
         onSend={onSend}
+        loadEarlier={hasNextPage}
+        onLoadEarlier={() => fetchNextPage()}
+        // renderLoadEarlier={(props) => hasNextPage && <LoadEarlier {...props} />}
         messagesContainerStyle={{
           backgroundColor: "#f2f2f2",
         }}
@@ -58,6 +78,7 @@ export default function Chat() {
             "https://kpknjige.com/wp-content/uploads/2023/05/medvedi-2.png",
         }}
       />
+      {/* {Platform.OS === "ios" && <KeyboardAvoidingView behavior="padding" />} */}
     </View>
   );
 }

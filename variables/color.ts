@@ -6,6 +6,7 @@ export const color = {
   primary: "#263A5F", //tamno plava
   primaryLight: "#b0c1df", //tamno plava
   secondary3: "#B0AAAC", //siva
+  secondary3Light: "#dedcdc", //siva
   secondary2: "#EBD325", //zuta
   secondary2Light: "#fcf9df", //zuta
   secondary: "#B62248", //crvena

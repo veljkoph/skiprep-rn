@@ -50,4 +50,5 @@ export const srb = {
   Workout: "Trening",
   Profile: "Profil",
   Messages: "Poruke",
+  loadEarlierMessages: "Učitaj ranije poruke",
 };

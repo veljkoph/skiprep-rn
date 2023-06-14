@@ -49,4 +49,5 @@ export const en = {
   Workout: "Workout",
   Profile: "Profile",
   Messages: "Messages",
+  loadEarlierMessages: "Load earlier messages",
 };
