@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { DrawerStackParamList } from "../DrawerNavigation/DrawerItems";
 import Ionicons from "react-native-vector-icons/Ionicons";

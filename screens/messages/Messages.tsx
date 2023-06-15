@@ -1,18 +1,11 @@
-import React, {
-  useState,
-  useLayoutEffect,
-  useCallback,
-  useEffect,
-} from "react";
-import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
-import { GiftedChat, IMessage, InputToolbar } from "react-native-gifted-chat";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useLayoutEffect, useCallback } from "react";
+import { View } from "react-native";
+import { GiftedChat, IMessage } from "react-native-gifted-chat";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import renderBubble from "../../components/messages/Bubble";
 import useMessages from "../../hooks/messages/useMessages";
 import Loader from "../../components/global/Loader";
 import useSendMessage from "../../hooks/messages/useSendMessage";
-import LoadEarlier from "../../components/messages/LoadEarlier";
 import useKeyboardStatus from "../../hooks/layout/useKeyboardStatus";
 
 export default function Chat() {
@@ -24,7 +17,7 @@ export default function Chat() {
     isFetchingNextPage,
   } = useMessages(2);
   const isKeyboardOpen = useKeyboardStatus();
-  console.log(isKeyboardOpen);
+
   const { mutate: sendMessage } = useSendMessage();
   const [messages, setMessages] = useState<IMessage[]>([]);
 
@@ -36,6 +29,7 @@ export default function Chat() {
   }, [oldMessages]);
 
   const onSend = useCallback((newMessages: IMessage[] = []) => {
+    //  extracted message properties as needed
     const { _id, createdAt, text, user } = newMessages[0];
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, newMessages)
@@ -44,8 +38,6 @@ export default function Chat() {
       id: 3,
       text,
     });
-
-    // Use the extracted message properties as needed
   }, []);
 
   if (isLoading) return <Loader />;
@@ -68,7 +60,6 @@ export default function Chat() {
         onSend={onSend}
         loadEarlier={hasNextPage}
         onLoadEarlier={() => fetchNextPage()}
-        // renderLoadEarlier={(props) => hasNextPage && <LoadEarlier {...props} />}
         messagesContainerStyle={{
           backgroundColor: "#f2f2f2",
         }}
