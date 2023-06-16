@@ -1,10 +1,11 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
 import { BASE } from "@env";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { color } from "../../variables/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import ImageBlurLoading from "react-native-image-blur-loading";
 
 interface IPost {
   caption: string;
@@ -18,6 +19,32 @@ dayjs.extend(relativeTime);
 
 const Post = (props: IPost) => {
   const { caption, created_at, image } = props;
+
+  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+  const [aspectRatio, setAspectRatio] = useState(0);
+
+  useEffect(() => {
+    // Load the remote image and get its size
+    loadImageSize(`${BASE}${image}`);
+    if (imageSize.height && imageSize.width) {
+      setAspectRatio(imageSize.width / imageSize.height);
+    }
+  }, [imageSize.height]);
+
+  const loadImageSize = useCallback((imageUrl: string) => {
+    if (!imageUrl) {
+      return;
+    }
+    Image?.getSize(
+      imageUrl,
+      (width, height) => {
+        setImageSize({ width, height });
+      },
+      (error) => {
+        console.error("Failed to load image size:", error);
+      }
+    );
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -43,6 +70,7 @@ const Post = (props: IPost) => {
               uri: "https://images.unsplash.com/photo-1686676831449-3589ad6b10da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
             }}
           />
+
           <View>
             <Text style={styles.userName}>Korisnik 12</Text>
             <Text style={styles.location}>
@@ -57,7 +85,14 @@ const Post = (props: IPost) => {
         </View>
         <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>
       </View>
-      <Image style={styles.image} source={{ uri: `${BASE}${image}` }} />
+
+      {aspectRatio !== 0 && (
+        <ImageBlurLoading
+          thumbnailSource={{ uri: "https://picsum.photos/id/1/50/50" }}
+          source={{ uri: `${BASE}${image}` }}
+          style={[styles.image, { aspectRatio: aspectRatio }]}
+        />
+      )}
 
       <Text style={styles.desc}>{caption}</Text>
     </View>
@@ -71,16 +106,14 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   image: {
-    flex: 1,
+    width: "100%",
+    aspectRatio: 1,
     resizeMode: "contain",
-    height: "auto",
   },
   profileImg: {
     borderRadius: 50,
     height: 45,
     aspectRatio: 1,
-
-    resizeMode: "cover",
   },
   userName: {
     color: color.black,

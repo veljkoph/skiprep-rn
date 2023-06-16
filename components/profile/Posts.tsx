@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { color } from "../../variables/color";
+import useImagePicker from "../../hooks/global/useImagePicker";
 
 const { width } = Dimensions.get("screen");
 const posts = [
@@ -30,9 +31,12 @@ const posts = [
 ];
 
 const Posts = () => {
+  const { pickImage, image } = useImagePicker();
+  console.log(image, "image");
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.addPost}>
+      <TouchableOpacity style={styles.addPost} onPress={pickImage}>
         <Image source={require("../../assets/icons/add.png")} />
       </TouchableOpacity>
       {posts.map((post) => (

@@ -12,7 +12,6 @@ const Home = () => {
     hasNextPage,
     fetchNextPage,
   } = useWall();
-
   return (
     <FlatList
       showsVerticalScrollIndicator={false}

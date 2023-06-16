@@ -33,6 +33,7 @@
     "react-native-dotenv": "^3.4.8",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-gifted-chat": "^2.3.0",
+    "react-native-image-blur-loading": "^1.2.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-paper": "^5.7.2",
     "react-native-reanimated": "~2.14.4",
@@ -43,7 +44,8 @@
     "react-native-toast-message": "^2.1.6",
     "react-native-vector-icons": "^9.2.0",
     "yup": "^1.1.1",
-    "zustand": "^4.3.8"
+    "zustand": "^4.3.8",
+    "expo-image-picker": "~14.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
