@@ -12,6 +12,7 @@ export const color = {
   secondary: "#B62248", //crvena
   secondaryLight: "#f1b6c5", //crvena
   secondary1: "#22B690", //zelena
+  secondary4: "#188368", //zelena
   secondary1Light: "#c1f3e6", //zelena
   disabled: "#dfdfdf", //gray disabled
 };

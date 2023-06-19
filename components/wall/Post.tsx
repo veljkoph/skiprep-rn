@@ -14,11 +14,12 @@ interface IPost {
   image: string;
   updated_at: Date;
   user_id?: number;
+  location?: string;
 }
 dayjs.extend(relativeTime);
 
 const Post = (props: IPost) => {
-  const { caption, created_at, image } = props;
+  const { caption, created_at, image, location } = props;
 
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [aspectRatio, setAspectRatio] = useState(0);
@@ -73,14 +74,16 @@ const Post = (props: IPost) => {
 
           <View>
             <Text style={styles.userName}>Korisnik 12</Text>
-            <Text style={styles.location}>
-              <Ionicons
-                color={color.secondary3}
-                name="location-outline"
-                size={18}
-              />
-              Austria
-            </Text>
+            {location && (
+              <Text style={styles.location}>
+                <Ionicons
+                  color={color.secondary3}
+                  name="location-outline"
+                  size={18}
+                />
+                {location}
+              </Text>
+            )}
           </View>
         </View>
         <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>

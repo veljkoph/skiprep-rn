@@ -11,6 +11,7 @@ import CourseStack, { CourseStackParamList } from "../CourseStack/CourseStack";
 import Header from "../Header/Header";
 import Messages from "../../screens/messages/Messages";
 import DrawerContent from "./DrawerContent";
+import CreatePost from "../../screens/create/CreatePost";
 
 export type DrawerStackParamList = {
   Home: undefined;
@@ -19,6 +20,7 @@ export type DrawerStackParamList = {
   Forum: undefined;
   Faq: undefined;
   Messages: undefined;
+  CreatePost: undefined;
 };
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 const ICON_SIZE = 29;
@@ -138,6 +140,17 @@ const DrawerItems = () => {
                 size={ICON_SIZE}
               />
             </TouchableOpacity>
+          ),
+        })}
+      />
+      <Drawer.Screen
+        name="CreatePost"
+        component={CreatePost}
+        options={({ navigation }) => ({
+          title: "Messages",
+          drawerItemStyle: { display: "none" },
+          header: () => (
+            <Header url={require("../../assets/logo/textLogoGreen.png")} />
           ),
         })}
       />

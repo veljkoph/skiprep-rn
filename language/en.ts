@@ -12,6 +12,8 @@ export const en = {
   forgotPasswordSubtitle: "Enter your email and follow the instructions",
   email: "Email",
   nickname: "Nickname",
+  description: "Description",
+  location: "Location",
   login: "Login",
   logout: "Logout",
   uSure: "Are you sure?",
@@ -50,4 +52,5 @@ export const en = {
   Profile: "Profile",
   Messages: "Messages",
   loadEarlierMessages: "Load earlier messages",
+  createPost: "Create post",
 };

@@ -9,6 +9,8 @@ import {
 import React from "react";
 import { color } from "../../variables/color";
 import useImagePicker from "../../hooks/global/useImagePicker";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { DrawerStackParamList } from "../../navigation/DrawerNavigation/DrawerItems";
 
 const { width } = Dimensions.get("screen");
 const posts = [
@@ -31,12 +33,14 @@ const posts = [
 ];
 
 const Posts = () => {
-  const { pickImage, image } = useImagePicker();
-  console.log(image, "image");
+  const navigation = useNavigation<NavigationProp<DrawerStackParamList>>();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.addPost} onPress={pickImage}>
+      <TouchableOpacity
+        style={styles.addPost}
+        onPress={() => navigation.navigate("CreatePost")}
+      >
         <Image source={require("../../assets/icons/add.png")} />
       </TouchableOpacity>
       {posts.map((post) => (

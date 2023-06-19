@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.secondary3,
   },
   editBtn: {
-    backgroundColor: color.secondary1Light,
+    backgroundColor: "#188368",
     width: "100%",
     paddingHorizontal: 10,
     paddingVertical: 16,
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   editBtnText: {
-    color: "#188368",
+    color: color.white,
     fontSize: 14,
     fontFamily: "Lexend-Bold",
   },

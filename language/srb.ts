@@ -11,6 +11,8 @@ export const srb = {
   forgotPasswordTitle: `Zaboravljena \nlozinka`,
   forgotPasswordSubtitle: "Unesite Email i pratite instrukcije",
   email: "Email",
+  description: "Opis",
+  location: "Lokacija",
   login: "Prijavi se",
   logout: "Odjavi se",
   uSure: "Da li ste sigurni?",
@@ -51,4 +53,5 @@ export const srb = {
   Profile: "Profil",
   Messages: "Poruke",
   loadEarlierMessages: "Učitaj ranije poruke",
+  createPost: "Kreiraj objavu",
 };
