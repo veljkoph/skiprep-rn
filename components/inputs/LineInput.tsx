@@ -20,6 +20,8 @@ interface IInputField {
   error: string | undefined;
   onBlur?: (e: any) => void;
   touched?: boolean | undefined;
+  icon?: string;
+  multiline?: boolean;
 }
 const { height } = Dimensions.get("screen");
 
@@ -31,6 +33,8 @@ const LineInput = ({
   error,
   onBlur,
   touched,
+  icon,
+  multiline,
 }: IInputField) => {
   const [hideText, setHideText] = React.useState(password);
   const { top } = useSafeAreaInsets();
@@ -59,15 +63,18 @@ const LineInput = ({
         value={value}
         mode="outlined"
         onBlur={onBlur}
+        multiline={multiline}
+        numberOfLines={5}
+        maxLength={250}
         onChangeText={onChangeText}
         secureTextEntry={hideText ? true : false}
         outlineStyle={{
           borderColor: color.primary,
           borderWidth: 0,
-          borderBottomWidth: 1,
+          borderBottomWidth: 2,
         }}
         style={{
-          height: 50,
+          minHeight: 50,
           borderRadius: 0,
           backgroundColor: "#f3f3f3",
         }}
@@ -96,6 +103,16 @@ const LineInput = ({
           <Ionicons
             color={color.secondary3}
             name={hideText ? "eye-outline" : "eye-off-outline"}
+            size={25}
+            style={{ marginTop: 10 }}
+          />
+        </TouchableOpacity>
+      )}
+      {icon && (
+        <TouchableOpacity style={styles.btn} disabled>
+          <Ionicons
+            color={color.primary}
+            name={icon}
             size={25}
             style={{ marginTop: 10 }}
           />

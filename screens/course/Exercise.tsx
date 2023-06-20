@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { RouteProp } from "@react-navigation/native";
-import { CourseStackParamList } from "../../navigation/CourseStack/CourseStack";
+import { CourseStackParamList } from "../../navigation/Stacks/CourseStack";
 
 type ExerciseProp = RouteProp<CourseStackParamList, "Exercise">;
 

@@ -7,15 +7,17 @@ import Profile from "../../screens/profile/Profile";
 import Faq from "../../screens/faq/Faq";
 import Forum from "../../screens/forum/Forum";
 import { color } from "../../variables/color";
-import CourseStack, { CourseStackParamList } from "../CourseStack/CourseStack";
+
 import Header from "../Header/Header";
 import Messages from "../../screens/messages/Messages";
 import DrawerContent from "./DrawerContent";
 import CreatePost from "../../screens/create/CreatePost";
+import CourseStack, { CourseStackParamList } from "../Stacks/CourseStack";
+import ProfileStack, { ProfileStackParamList } from "../Stacks/ProfileStack";
 
 export type DrawerStackParamList = {
   Home: undefined;
-  Profile: undefined;
+  Profile: ProfileStackParamList;
   Courses: CourseStackParamList;
   Forum: undefined;
   Faq: undefined;
@@ -60,9 +62,9 @@ const DrawerItems = () => {
       />
       <Drawer.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileStack}
         options={({ navigation }) => ({
-          title: "Profile",
+          title: "ProfileStack",
           drawerItemStyle: { display: "none" },
           header: () => (
             <Header url={require("../../assets/logo/textLogoGreen.png")} />

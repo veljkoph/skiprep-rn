@@ -5,7 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Level from "./LevelColor";
 import LevelName from "./LevelName";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { CourseStackParamList } from "../../navigation/CourseStack/CourseStack";
+import { CourseStackParamList } from "../../navigation/Stacks/CourseStack";
 
 interface ITrainingProps {
   name: string;

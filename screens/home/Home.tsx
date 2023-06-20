@@ -32,6 +32,7 @@ const Home = () => {
       }}
       contentContainerStyle={{
         paddingBottom: 150,
+        backgroundColor: "#FFF",
         //  paddingHorizontal: 20,
       }}
       onEndReachedThreshold={0}

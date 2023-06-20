@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { RouteProp } from "@react-navigation/native";
-import { CourseStackParamList } from "../../navigation/CourseStack/CourseStack";
+import { CourseStackParamList } from "../../navigation/Stacks/CourseStack";
 import useTrainings from "../../hooks/courses/useTrainings";
 import { color } from "../../variables/color";
 import Week from "../../components/courses/Week";

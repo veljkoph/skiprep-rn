@@ -4,6 +4,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,6 +16,10 @@ import { Formik } from "formik";
 import { ActivityIndicator } from "react-native-paper";
 import LineInput from "../../components/inputs/LineInput";
 import useCreatePost from "../../hooks/wall/useCreatePost";
+import { LinearGradient } from "expo-linear-gradient";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 interface IForm {
   caption?: string;
@@ -24,9 +29,16 @@ const CreatePost = () => {
   const { pickImage, image } = useImagePicker();
   const { t } = useTranslation();
   const { mutate: createPost, isLoading } = useCreatePost();
-
+  const { bottom: bottomInsets } = useSafeAreaInsets();
   const submitHandler = (values: IForm) => {
     const formData = new FormData();
+
+    if (!image?.assets) {
+      Toast.show({
+        type: "error",
+        text1: t("imageRequired") || "",
+      });
+    }
     if (image?.assets) {
       const imageUri = image?.assets[0]?.uri;
       const uriArr = imageUri.split(".");
@@ -50,76 +62,112 @@ const CreatePost = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* <Text style={styles.title}>{t("createPost")}</Text> */}
-      <TouchableOpacity
-        style={[
-          styles.imageBtn,
-          {
-            paddingVertical: image?.assets && image?.assets[0]?.uri ? 0 : 50,
-          },
-        ]}
-        onPress={pickImage}
+    <ScrollView>
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.container}
+        keyboardOpeningTime={10}
       >
-        {image?.assets && image?.assets[0]?.uri ? (
-          <Image
-            style={{
-              height: 250,
-              width: "100%",
-              borderRadius: 5,
-              resizeMode: "cover",
-            }}
-            source={{ uri: image?.assets[0]?.uri }}
-          />
-        ) : (
-          <Image source={require("../../assets/icons/photo.png")} />
-        )}
-      </TouchableOpacity>
-      <Formik
-        // validationSchema={LoginSchema}
-        initialValues={{ caption: "", location: "" }}
-        onSubmit={(values) => submitHandler(values)}
-      >
-        {(props) => (
-          <View style={{ rowGap: 24 }}>
-            <LineInput
-              onChangeText={props.handleChange("caption")}
-              value={props.values.caption}
-              label={t("description")}
-              error={props.errors.caption}
-              onBlur={props.handleBlur("caption")}
-              touched={props.touched.caption}
-            />
-            <LineInput
-              onChangeText={props.handleChange("location")}
-              value={props.values.location}
-              label={t("location")}
-              error={props.errors.location}
-              onBlur={props.handleBlur("location")}
-              touched={props.touched.location}
-            />
+        {/* <Text style={styles.title}>{t("createPost")}</Text> */}
 
-            <TouchableOpacity
-              style={[
-                styles.mainCta,
-                {
-                  backgroundColor: isLoading
-                    ? color.secondary3
-                    : color.secondary4,
-                },
-              ]}
-              onPress={() => props.handleSubmit()}
-              disabled={isLoading}
+        <TouchableOpacity
+          style={[
+            styles.imageBtn,
+            {
+              paddingVertical: image?.assets && image?.assets[0]?.uri ? 0 : 50,
+              borderWidth: image?.assets && image?.assets[0]?.uri ? 0 : 2,
+            },
+          ]}
+          onPress={pickImage}
+        >
+          {image?.assets && image?.assets[0]?.uri ? (
+            <Image
+              style={{
+                height: 250,
+                aspectRatio: 1,
+                borderRadius: 5,
+                resizeMode: "cover",
+              }}
+              source={{ uri: image?.assets[0]?.uri }}
+            />
+          ) : (
+            <Image
+              style={{
+                height: 64,
+                borderRadius: 5,
+                resizeMode: "contain",
+              }}
+              source={require("../../assets/icons/photo.png")}
+            />
+          )}
+        </TouchableOpacity>
+        <Formik
+          // validationSchema={LoginSchema}
+          initialValues={{ caption: "", location: "" }}
+          onSubmit={(values) => submitHandler(values)}
+        >
+          {(props) => (
+            <View
+              style={{
+                justifyContent: "space-between",
+                flex: 1,
+                paddingBottom: bottomInsets + 60,
+              }}
             >
-              {isLoading ? (
-                <ActivityIndicator size="small" color="white" />
-              ) : (
-                <Text style={styles.mainCtaText}>{t("createPost")}</Text>
-              )}
-            </TouchableOpacity>
-          </View>
-        )}
-      </Formik>
+              <View style={{ rowGap: 12, flex: 1 }}>
+                <View style={{ rowGap: 8 }}>
+                  <Text style={styles.label}>{t("caption")}</Text>
+                  <TextInput
+                    onChangeText={props.handleChange("caption")}
+                    value={props.values.caption}
+                    placeholder={t("addCaption") || ""}
+                    multiline
+                    style={[styles.descriptionInput, styles.shadow]}
+                  />
+                </View>
+                <View style={{ rowGap: 8 }}>
+                  <Text style={styles.label}>{t("location")}</Text>
+                  <TextInput
+                    onChangeText={props.handleChange("location")}
+                    value={props.values.location}
+                    placeholder={t("location") || ""}
+                    style={[styles.locInput, styles.shadow]}
+                  />
+                </View>
+              </View>
+              <TouchableOpacity
+                style={[
+                  styles.mainCta,
+                  {
+                    backgroundColor: isLoading
+                      ? color.secondary3
+                      : color.secondary4,
+                  },
+                ]}
+                onPress={() => props.handleSubmit()}
+                disabled={isLoading}
+              >
+                <LinearGradient
+                  // Button Linear Gradient
+                  colors={["#1ea281", "#188368"]}
+                  style={{
+                    width: "100%",
+                    flex: 1,
+                    borderRadius: 3,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {isLoading ? (
+                    <ActivityIndicator size="small" color="white" />
+                  ) : (
+                    <Text style={styles.mainCtaText}>{t("createPost")}</Text>
+                  )}
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          )}
+        </Formik>
+      </KeyboardAwareScrollView>
     </ScrollView>
   );
 };
@@ -129,14 +177,17 @@ export default CreatePost;
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    rowGap: 18,
+    rowGap: 24,
+    flex: 1,
   },
   imageBtn: {
+    borderRadius: 1,
+    width: "100%",
+    borderStyle: "dashed",
+    borderWidth: 2,
+    borderColor: color.secondary3,
     alignItems: "center",
-    justifyContent: "center",
-    // paddingVertical: 50,
-    backgroundColor: color.primaryLight,
-    borderRadius: 5,
+    backgroundColor: "#FFf",
   },
   title: {
     fontSize: 24,
@@ -145,13 +196,44 @@ const styles = StyleSheet.create({
   mainCta: {
     height: 50,
     backgroundColor: color.secondary3,
-    borderRadius: 5,
+    borderRadius: 3,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 25,
   },
   mainCtaText: {
-    fontSize: 17,
+    fontSize: 16,
     color: color.white,
-    fontFamily: "Lexend-Bold",
+    fontFamily: "Lexend-Medium",
+  },
+  label: {
+    fontSize: 14,
+    color: color.black,
+    fontFamily: "Lexend-Medium",
+  },
+  descriptionInput: {
+    backgroundColor: "white",
+    borderRadius: 3,
+    minHeight: 100,
+    padding: 5,
+    fontFamily: "Lexend-Regular",
+  },
+  locInput: {
+    backgroundColor: "white",
+    borderRadius: 3,
+    minHeight: 50,
+    padding: 5,
+    fontFamily: "Lexend-Regular",
+  },
+  shadow: {
+    shadowColor: "#8a8a8a",
+
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 1.41,
+    elevation: 1,
   },
 });

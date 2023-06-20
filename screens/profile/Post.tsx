@@ -7,19 +7,19 @@ import { color } from "../../variables/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ImageBlurLoading from "react-native-image-blur-loading";
 
-interface IPost {
-  caption: string;
-  created_at: Date;
-  id: number;
-  image: string;
-  updated_at: Date;
+export interface IPost {
+  caption?: string;
+  created_at?: Date;
+  id?: number;
+  image?: string;
+  updated_at?: Date;
   user_id?: number;
   location?: string;
 }
 dayjs.extend(relativeTime);
 
 const Post = (props: IPost) => {
-  const { caption, created_at, image, location } = props;
+  const { caption, created_at, image, location } = props.route.params;
 
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [aspectRatio, setAspectRatio] = useState(0);

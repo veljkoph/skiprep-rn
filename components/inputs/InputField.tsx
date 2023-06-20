@@ -63,11 +63,11 @@ const InputField = ({
         secureTextEntry={hideText ? true : false}
         outlineStyle={{
           borderColor: color.secondary,
-          borderWidth: error && touched ? 1 : 0,
+          borderWidth: error && touched ? 2 : 0,
         }}
         style={{
           height: height < 700 ? 50 : 60,
-          borderRadius: 10,
+
           backgroundColor: "#f3f3f3",
         }}
         contentStyle={{
@@ -76,7 +76,7 @@ const InputField = ({
           fontFamily: "Lexend-Regular",
           backgroundColor: "white",
           shadowColor: "#8a8a8a",
-          borderRadius: 10,
+          borderRadius: error && touched ? 1 : 5,
           shadowOffset: {
             width: 0,
             height: 1,
