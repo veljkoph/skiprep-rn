@@ -3,7 +3,7 @@ import Toast from "react-native-toast-message";
 import { fetchUserWall } from "../../services/user/userWallService";
 
 const useUserWall = (id: number) =>
-  useQuery([`user-wall/${id}`], () => fetchUserWall(id), {
+  useQuery([`user-wall`], () => fetchUserWall(id), {
     onError: async (data) => {
       Toast.show({
         type: "error",

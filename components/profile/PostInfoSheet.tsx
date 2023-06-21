@@ -34,7 +34,7 @@ const PostInfoSheet = (props: IProps) => {
     ]);
 
   return (
-    <View style={[styles.container, { paddingBottom: insets.bottom + 130 }]}>
+    <View style={[styles.container, { paddingBottom: insets.bottom + 70 }]}>
       <View
         style={{
           flexDirection: "row",

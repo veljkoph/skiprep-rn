@@ -151,6 +151,11 @@ const Post = (props: { route: { params: IPost } }) => {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         enablePanDownToClose
+        style={{
+          borderWidth: 2,
+          borderRadius: 15,
+          borderColor: color.secondary,
+        }}
       >
         <PostInfoSheet
           time={dayjs(created_at)?.fromNow()}
@@ -175,6 +180,7 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 18,
     backgroundColor: "#FFF",
+    flex: 1,
   },
   image: {
     width: "100%",

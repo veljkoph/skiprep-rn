@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
 import { BASE_URL } from "@env";
 import * as SecureStore from "expo-secure-store";
@@ -11,10 +11,10 @@ import { ProfileStackParamList } from "../../navigation/Stacks/ProfileStack";
 const useDeletePost = () => {
   const navigation = useNavigation<NavigationProp<ProfileStackParamList>>();
   const { t } = useTranslation();
-
+  const queryClient = useQueryClient();
   return useMutation(
     async (values: any) =>
-      axios.post(`${BASE_URL}/wall-delete/${values.id}`, values, {
+      axios.post(`${BASE_URL}/wall-delete/${values}`, values, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `Bearer ${await SecureStore.getItemAsync("token")}`,
@@ -22,12 +22,12 @@ const useDeletePost = () => {
       }),
     {
       onSuccess: async (data) => {
-        console.log(data);
         Toast.show({
           type: "success",
           //@ts-ignore
           text1: t("postDeleted"),
         });
+        queryClient.invalidateQueries([`user-wall`]);
         setTimeout(() => {
           navigation.navigate("ProfileInfo");
         }, 250);
