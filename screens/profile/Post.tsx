@@ -1,25 +1,45 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { BASE } from "@env";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { color } from "../../variables/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ImageBlurLoading from "react-native-image-blur-loading";
+import Loader from "../../components/global/Loader";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import BottomSheet from "@gorhom/bottom-sheet";
+import PostInfoSheet from "../../components/profile/PostInfoSheet";
 
 export interface IPost {
   caption?: string;
   created_at?: Date;
-  id?: number;
+  id: number;
   image?: string;
   updated_at?: Date;
   user_id?: number;
   location?: string;
+  user?: string;
 }
+
 dayjs.extend(relativeTime);
 
-const Post = (props: IPost) => {
-  const { caption, created_at, image, location } = props.route.params;
+const Post = (props: { route: { params: IPost } }) => {
+  const { caption, created_at, image, location, user, id } =
+    props?.route?.params;
 
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [aspectRatio, setAspectRatio] = useState(0);
@@ -46,9 +66,26 @@ const Post = (props: IPost) => {
       }
     );
   }, []);
-  if (!imageSize.height) return null;
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  // variables
+  const snapPoints = useMemo(() => ["50%"], []);
+  const [isOpen, setIsOpen] = useState(true);
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
+
+  const handleSnapPress = useCallback(() => {
+    bottomSheetRef?.current?.expand();
+    console.log("open");
+    setIsOpen(true);
+  }, []);
+
+  if (!imageSize.height) return <Loader loaderColor={color.secondary3} />;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <View
         style={{
           flexDirection: "row",
@@ -73,7 +110,7 @@ const Post = (props: IPost) => {
           />
 
           <View>
-            <Text style={styles.userName}>Korisnik 12</Text>
+            <Text style={styles.userName}>{user}</Text>
             {location && (
               <Text style={styles.location}>
                 <Ionicons
@@ -86,25 +123,48 @@ const Post = (props: IPost) => {
             )}
           </View>
         </View>
-        <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>
+
+        <TouchableOpacity
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={() => handleSnapPress()}
+        >
+          <Image
+            style={{ height: 30, width: 30 }}
+            source={require("../../assets/icons/threedots.png")}
+          />
+        </TouchableOpacity>
       </View>
 
       {aspectRatio !== 0 && (
         <ImageBlurLoading
-          thumbnailSource={{
-            uri: "https://img.freepik.com/free-vector/blue-blurred-background-design_1107-117.jpg",
-          }}
+          //  thumbnailSource={require("../../assets/icons/add.png")}
           source={{ uri: `${BASE}${image}` }}
           style={[styles.image, { aspectRatio: aspectRatio }]}
         />
       )}
-
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={-1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+        enablePanDownToClose
+      >
+        <PostInfoSheet
+          time={dayjs(created_at)?.fromNow()}
+          caption={caption}
+          id={id}
+        />
+      </BottomSheet>
       {caption && (
         <Text style={styles.desc}>
           <Text style={styles.bold}> @korisnik &nbsp;</Text>
           {caption}
         </Text>
       )}
+      <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>
     </View>
   );
 };
@@ -114,6 +174,7 @@ export default Post;
 const styles = StyleSheet.create({
   container: {
     marginBottom: 18,
+    backgroundColor: "#FFF",
   },
   image: {
     width: "100%",
@@ -134,6 +195,7 @@ const styles = StyleSheet.create({
     color: color.secondary3,
     fontSize: 14,
     fontFamily: "Lexend-Regular",
+    padding: 5,
   },
   desc: {
     color: color.black,

@@ -57,4 +57,7 @@ export const en = {
   Messages: "Messages",
   loadEarlierMessages: "Load earlier messages",
   createPost: "Create post",
+  postDeleted: "Post Deleted",
+  delete: "Delete",
+  deletePost: "Delete post",
 };

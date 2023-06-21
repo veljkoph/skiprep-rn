@@ -11,7 +11,11 @@ import Animated, {
 } from "react-native-reanimated";
 import { color } from "../../variables/color";
 
-const Loader = () => {
+interface IProps {
+  loaderColor?: string;
+}
+const Loader = (props: IProps) => {
+  const { loaderColor } = props;
   const rotation = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -36,7 +40,13 @@ const Loader = () => {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.spinner, animatedStyles]} />
+      <Animated.View
+        style={[
+          styles.spinner,
+          animatedStyles,
+          { borderLeftColor: loaderColor },
+        ]}
+      />
     </View>
   );
 };

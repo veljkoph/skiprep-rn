@@ -58,4 +58,7 @@ export const srb = {
   Messages: "Poruke",
   loadEarlierMessages: "Učitaj ranije poruke",
   createPost: "Kreiraj objavu",
+  delete: "Obriši",
+  postDeleted: "Objava obrisana",
+  deletePost: "Obriši objavu",
 };
