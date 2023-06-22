@@ -30,7 +30,10 @@ const Posts = () => {
         style={styles.addPost}
         onPress={() => navigation.navigate("CreatePost")}
       >
-        <Image source={require("../../assets/icons/add.png")} />
+        <Image
+          style={styles.addPostLogo}
+          source={require("../../assets/icons/add.png")}
+        />
       </TouchableOpacity>
       {posts?.map((post: IPost) => (
         <TouchableOpacity
@@ -55,6 +58,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     flexDirection: "row",
     flexWrap: "wrap",
+    alignItems: "flex-start",
+    flex: 1,
+    width: "100%",
   },
   post: {
     width: width / 3 - 2,
@@ -69,5 +75,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     margin: 1,
+  },
+  addPostLogo: {
+    maxHeight: "50%",
+    aspectRatio: 1,
   },
 });

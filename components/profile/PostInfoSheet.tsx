@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "space-between",
     flex: 1,
+    backgroundColor: "#f0eded",
   },
   timeIcon: {
     height: 42,

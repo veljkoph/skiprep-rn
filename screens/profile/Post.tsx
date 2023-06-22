@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, {
   useCallback,
   useEffect,
@@ -19,10 +12,9 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { color } from "../../variables/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ImageBlurLoading from "react-native-image-blur-loading";
-import Loader from "../../components/global/Loader";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BottomSheet from "@gorhom/bottom-sheet";
 import PostInfoSheet from "../../components/profile/PostInfoSheet";
+import { useSharedValue } from "react-native-reanimated";
 
 export interface IPost {
   caption?: string;
@@ -72,18 +64,18 @@ const Post = (props: { route: { params: IPost } }) => {
   // variables
   const snapPoints = useMemo(() => ["50%"], []);
   const [isOpen, setIsOpen] = useState(true);
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
+  const indexSheet = useSharedValue(-1);
   const handleSnapPress = useCallback(() => {
     bottomSheetRef?.current?.expand();
-    console.log("open");
     setIsOpen(true);
   }, []);
 
-  if (!imageSize.height) return <Loader loaderColor={color.secondary3} />;
+  const handleSheetChanges = useCallback((index: number) => {
+    indexSheet.value = index;
+    console.log(indexSheet.value, "value");
+  }, []);
+
+  // if (!imageSize.height) return <Loader loaderColor={color.secondary3} />;
   return (
     <View style={[styles.container]}>
       <View
@@ -145,14 +137,19 @@ const Post = (props: { route: { params: IPost } }) => {
           style={[styles.image, { aspectRatio: aspectRatio }]}
         />
       )}
+      <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>
       <BottomSheet
         ref={bottomSheetRef}
         index={-1}
         snapPoints={snapPoints}
-        onChange={handleSheetChanges}
         enablePanDownToClose
+        onChange={handleSheetChanges}
+        handleComponent={() => (
+          <View style={styles.closeLineContainer}>
+            <View style={styles.closeLine}></View>
+          </View>
+        )}
         style={{
-          borderWidth: 2,
           borderRadius: 15,
           borderColor: color.secondary,
         }}
@@ -169,7 +166,6 @@ const Post = (props: { route: { params: IPost } }) => {
           {caption}
         </Text>
       )}
-      <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>
     </View>
   );
 };
@@ -221,5 +217,21 @@ const styles = StyleSheet.create({
     fontFamily: "Lexend-Regular",
     alignItems: "center",
     justifyContent: "center",
+  },
+  closeLineContainer: {
+    alignSelf: "center",
+    backgroundColor: "#f0eded",
+    width: "100%",
+    alignItems: "center",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    justifyContent: "center",
+  },
+  closeLine: {
+    width: 40,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: color.secondary3,
+    marginTop: 9,
   },
 });

@@ -91,9 +91,9 @@ const Post = (props: IPost) => {
 
       {aspectRatio !== 0 && (
         <ImageBlurLoading
-          thumbnailSource={{
-            uri: "https://img.freepik.com/free-vector/blue-blurred-background-design_1107-117.jpg",
-          }}
+          // thumbnailSource={{
+          //   uri: "https://img.freepik.com/free-vector/blue-blurred-background-design_1107-117.jpg",
+          // }}
           source={{ uri: `${BASE}${image}` }}
           style={[styles.image, { aspectRatio: aspectRatio }]}
         />
@@ -114,6 +114,7 @@ export default Post;
 const styles = StyleSheet.create({
   container: {
     marginBottom: 18,
+    backgroundColor: "#fff",
   },
   image: {
     width: "100%",

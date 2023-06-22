@@ -14,6 +14,7 @@ import DrawerContent from "./DrawerContent";
 import CreatePost from "../../screens/create/CreatePost";
 import CourseStack, { CourseStackParamList } from "../Stacks/CourseStack";
 import ProfileStack, { ProfileStackParamList } from "../Stacks/ProfileStack";
+import HeaderWithBack from "../Header/HeaderWithBack";
 
 export type DrawerStackParamList = {
   Home: undefined;
@@ -66,10 +67,8 @@ const DrawerItems = () => {
         options={({ navigation }) => ({
           title: "ProfileStack",
           drawerItemStyle: { display: "none" },
-          header: () => (
-            <Header url={require("../../assets/logo/textLogoGreen.png")} />
-          ),
-          headerShown: true,
+
+          headerShown: false,
           drawerIcon: ({ focused, color, size }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
               <Ionicons
@@ -145,7 +144,7 @@ const DrawerItems = () => {
           ),
         })}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="CreatePost"
         component={CreatePost}
         options={({ navigation }) => ({
@@ -155,7 +154,7 @@ const DrawerItems = () => {
             <Header url={require("../../assets/logo/textLogoGreen.png")} />
           ),
         })}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 };
