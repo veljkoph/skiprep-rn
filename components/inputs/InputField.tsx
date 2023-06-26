@@ -20,6 +20,7 @@ interface IInputField {
   error: string | undefined;
   onBlur?: (e: any) => void;
   touched?: boolean | undefined;
+  disabled?: boolean | undefined;
 }
 const { height } = Dimensions.get("screen");
 
@@ -31,6 +32,7 @@ const InputField = ({
   error,
   onBlur,
   touched,
+  disabled,
 }: IInputField) => {
   const [hideText, setHideText] = React.useState(password);
   const { top } = useSafeAreaInsets();
@@ -55,10 +57,15 @@ const InputField = ({
   return (
     <View style={styles.container}>
       <TextInput
-        label={label}
+        label={
+          <Text style={{ fontSize: 14, fontFamily: "Lexend-Regular" }}>
+            {label}
+          </Text>
+        }
         value={value}
         mode="outlined"
         onBlur={onBlur}
+        disabled={disabled}
         onChangeText={onChangeText}
         secureTextEntry={hideText ? true : false}
         outlineStyle={{
@@ -67,15 +74,15 @@ const InputField = ({
         }}
         style={{
           height: height < 700 ? 50 : 60,
-
           backgroundColor: "#f3f3f3",
         }}
         contentStyle={{
-          color: "#020020",
+          color: disabled ? color.secondary3 : "#020020",
           fontSize: height < 700 ? 14 : 15,
           fontFamily: "Lexend-Regular",
           backgroundColor: "white",
           shadowColor: "#8a8a8a",
+
           borderRadius: error && touched ? 1 : 5,
           shadowOffset: {
             width: 0,
@@ -95,6 +102,20 @@ const InputField = ({
           <Ionicons
             color={color.secondary3}
             name={hideText ? "eye-outline" : "eye-off-outline"}
+            size={25}
+            style={{ marginTop: 10 }}
+          />
+        </TouchableOpacity>
+      )}
+      {disabled && (
+        <TouchableOpacity
+          style={styles.btn}
+          disabled
+          onPress={() => setHideText(!hideText)}
+        >
+          <Ionicons
+            color={color.secondary1}
+            name="checkmark-circle-outline"
             size={25}
             style={{ marginTop: 10 }}
           />

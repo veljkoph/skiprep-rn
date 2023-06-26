@@ -6,6 +6,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { color } from "../../variables/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ImageBlurLoading from "react-native-image-blur-loading";
+import { ActivityIndicator } from "react-native-paper";
 
 interface IPost {
   caption: string;
@@ -20,7 +21,11 @@ dayjs.extend(relativeTime);
 
 const Post = (props: IPost) => {
   const { caption, created_at, image, location } = props;
+  const [isLoading, setIsLoading] = useState(true);
 
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [aspectRatio, setAspectRatio] = useState(0);
 
@@ -89,14 +94,19 @@ const Post = (props: IPost) => {
         <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>
       </View>
 
-      {aspectRatio !== 0 && (
-        <ImageBlurLoading
+      {!isLoading ? (
+        <Image
           // thumbnailSource={{
           //   uri: "https://img.freepik.com/free-vector/blue-blurred-background-design_1107-117.jpg",
           // }}
           source={{ uri: `${BASE}${image}` }}
           style={[styles.image, { aspectRatio: aspectRatio }]}
+          onLoadStart={() => console.log("onLoadStart")}
+          onLoadEnd={() => console.log("onLoadEnd")}
+          onLoad={() => handleImageLoad()}
         />
+      ) : (
+        <ActivityIndicator style={{ height: 300 }} />
       )}
 
       {caption && (

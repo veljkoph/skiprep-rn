@@ -10,6 +10,8 @@ import React from "react";
 import { color } from "../../variables/color";
 import { useTranslation } from "react-i18next";
 import Posts from "../../components/profile/Posts";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { ProfileStackParamList } from "../../navigation/Stacks/ProfileStack";
 
 const user = {
   image:
@@ -22,7 +24,7 @@ const user = {
 
 const Profile = () => {
   const { t } = useTranslation();
-
+  const navigation = useNavigation<NavigationProp<ProfileStackParamList>>();
   return (
     <ScrollView bounces={false} contentContainerStyle={styles.container}>
       <View style={{ paddingHorizontal: 10, width: "100%" }}>
@@ -66,7 +68,10 @@ const Profile = () => {
             <Text style={styles.infoItemText}>{user?.year}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.editBtn}>
+        <TouchableOpacity
+          style={styles.editBtn}
+          onPress={() => navigation.navigate("EditProfile")}
+        >
           <Text style={styles.editBtnText}>{t("editProfile")}</Text>
         </TouchableOpacity>
       </View>

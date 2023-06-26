@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React from "react";
 import { color } from "../../variables/color";
-import useImagePicker from "../../hooks/global/useImagePicker";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BASE } from "@env";
 import { ProfileStackParamList } from "../../navigation/Stacks/ProfileStack";
@@ -77,7 +76,8 @@ const styles = StyleSheet.create({
     margin: 1,
   },
   addPostLogo: {
-    maxHeight: "50%",
-    aspectRatio: 1,
+    height: "50%",
+    width: "50%",
+    alignSelf: "center",
   },
 });
