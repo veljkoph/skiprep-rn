@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,85 +15,145 @@ import SelectDropdown from "react-native-select-dropdown";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { color } from "../../variables/color";
 import useEditProfile from "../../hooks/profile/useEditProfile";
+import useProfile from "../../hooks/profile/useProfile";
+import { years } from "../../variables/years";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ActivityIndicator } from "react-native-paper";
 
 const EditProfile = () => {
   const { t } = useTranslation();
-  const { mutate: editProfile } = useEditProfile();
-
+  const { mutate: editProfile, isLoading: isEditing } = useEditProfile();
+  const { data: user, isLoading } = useProfile(3);
+  const { bottom } = useSafeAreaInsets();
   return (
     <View style={styles.container}>
       <Formik
         //  validationSchema={LoginSchema}name, email, gender, birth_year, image
 
         initialValues={{
-          name: "",
-          email: "",
-          gender: "",
-          birth_year: "",
+          name: user?.name,
+          email: user?.email,
+          gender: user?.gender,
+          birth_year: user?.birth_year,
           user_id: 3,
         }}
+        enableReinitialize
         onSubmit={(values) => {
-          console.log(values);
+          console.log(values, "val");
           editProfile(values);
         }}
       >
         {(props) => (
-          <View style={{ rowGap: 14 }}>
-            <InputField
-              label={t("email")}
-              onChangeText={props.handleChange("email")}
-              value={props.values.email}
-              error={props.errors.email}
-              onBlur={props.handleBlur("email")}
-              disabled
-              touched={props.touched.email}
-            />
-            <InputField
-              onChangeText={props.handleChange("name")}
-              value={props.values.name}
-              label={t("name")}
-              error={props.errors.name}
-              onBlur={props.handleBlur("name")}
-              touched={props.touched.name}
-            />
+          <ScrollView
+            contentContainerStyle={{
+              justifyContent: "space-between",
+              flex: 1,
+              paddingTop: 20,
+            }}
+          >
+            <View style={{ rowGap: 14 }}>
+              <InputField
+                label={t("email")}
+                onChangeText={props.handleChange("email")}
+                value={props.values.email}
+                error={props.errors.email}
+                onBlur={props.handleBlur("email")}
+                disabled
+                touched={props.touched.email}
+              />
+              <InputField
+                onChangeText={props.handleChange("name")}
+                value={props.values.name}
+                label={t("nickname")}
+                error={props.errors.name}
+                onBlur={props.handleBlur("name")}
+                touched={props.touched.name}
+              />
 
-            <SelectDropdown
-              data={sexOptions}
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
-                props.setFieldValue("gender", selectedItem.label);
-              }}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return selectedItem.label;
-              }}
-              rowTextForSelection={(item, index) => {
-                return item.label;
-              }}
-              buttonStyle={styles.dropdown1BtnStyle}
-              buttonTextStyle={styles.dropdown1BtnTxtStyle}
-              dropdownIconPosition={"right"}
-              dropdownStyle={styles.dropdown1DropdownStyle}
-              rowStyle={styles.dropdown1RowStyle}
-              rowTextStyle={styles.dropdown1RowTxtStyle}
-              renderDropdownIcon={(isOpened) => {
-                return (
-                  <Ionicons
-                    color={color.secondary3}
-                    name="male-female-outline"
-                    size={20}
-                    style={{ marginTop: 0 }}
-                  />
-                );
-              }}
-            />
-
+              <SelectDropdown
+                data={sexOptions}
+                defaultValue={sexOptions.find(
+                  (element) => element.value === props.values.gender
+                )}
+                onSelect={(selectedItem, index) => {
+                  console.log(selectedItem, index);
+                  props.setFieldValue("gender", selectedItem.value);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem.label;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item.label;
+                }}
+                buttonStyle={styles.dropdown1BtnStyle}
+                buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                dropdownIconPosition={"right"}
+                dropdownStyle={styles.dropdown1DropdownStyle}
+                rowStyle={styles.dropdown1RowStyle}
+                rowTextStyle={styles.dropdown1RowTxtStyle}
+                renderDropdownIcon={(isOpened) => {
+                  return (
+                    <Ionicons
+                      color={color.secondary3}
+                      name="male-female-outline"
+                      size={20}
+                      style={{ marginTop: 0, marginRight: 12 }}
+                    />
+                  );
+                }}
+              />
+              <SelectDropdown
+                data={years}
+                defaultValue={years.find(
+                  (element) => element.label === props.values.birth_year
+                )}
+                onSelect={(selectedItem, index) => {
+                  console.log(selectedItem, index);
+                  props.setFieldValue("birth_year", selectedItem.label);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem.label;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item.label;
+                }}
+                buttonStyle={styles.dropdown1BtnStyle}
+                buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                dropdownIconPosition={"right"}
+                dropdownStyle={styles.dropdown1DropdownStyle}
+                rowStyle={styles.dropdown1RowStyle}
+                rowTextStyle={styles.dropdown1RowTxtStyle}
+                renderDropdownIcon={(isOpened) => {
+                  return (
+                    <Ionicons
+                      color={color.secondary3}
+                      name="calendar-outline"
+                      size={20}
+                      style={{ marginTop: 0, marginRight: 12 }}
+                    />
+                  );
+                }}
+              />
+            </View>
+            {isEditing && (
+              <ActivityIndicator size="large" color={color.primaryLight} />
+            )}
             <TouchableOpacity
+              disabled={isEditing}
               onPress={() => props.handleSubmit()}
-              style={styles.submitBtn}
+              style={[
+                styles.submitBtn,
+                {
+                  marginBottom: bottom + 60,
+                  backgroundColor: isEditing
+                    ? color.secondary3Light
+                    : color.secondary4,
+                },
+              ]}
             >
-              <Text style={styles.submitBtnText}>Save</Text>
+              <Text style={styles.submitBtnText}>{t("save")}</Text>
             </TouchableOpacity>
-          </View>
+          </ScrollView>
         )}
       </Formik>
     </View>
@@ -106,7 +167,7 @@ const height = Dimensions.get("screen").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
   },
   dropdownText: {
     backgroundColor: "white",
@@ -128,7 +189,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   dropdown1BtnTxtStyle: {
-    color: "#444",
+    color: "#000",
     textAlign: "left",
     fontSize: 14,
     fontFamily: "Lexend-Regular",
@@ -144,7 +205,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#C5C5C5",
   },
   dropdown1RowTxtStyle: {
-    color: "#444",
+    color: "#000",
     textAlign: "left",
     fontFamily: "Lexend-Regular",
 

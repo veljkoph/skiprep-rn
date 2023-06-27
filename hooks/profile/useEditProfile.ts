@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
 import { BASE_URL } from "@env";
 
@@ -8,9 +8,8 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { DrawerStackParamList } from "../../navigation/DrawerNavigation/DrawerItems";
 //proveri da li radi bez multipart form data
 const useEditProfile = () => {
-  const navigation = useNavigation<NavigationProp<DrawerStackParamList>>();
   const { t } = useTranslation();
-
+  const queryClient = useQueryClient();
   return useMutation(
     (values: any) =>
       axios.post(`${BASE_URL}/user-basic/${values.user_id}`, values, {
@@ -18,15 +17,12 @@ const useEditProfile = () => {
       }),
     {
       onSuccess: async (data) => {
-        console.log(data);
+        queryClient.invalidateQueries([`user-basic`]);
         Toast.show({
           type: "success",
-          //@ts-ignore
-          // text1: t("postCreated"),
+          //    @ts-ignore
+          text1: t("editSuccessful"),
         });
-        setTimeout(() => {
-          //navigation.navigate("Home");
-        }, 250);
       },
       onError: async (data) => {
         Toast.show({

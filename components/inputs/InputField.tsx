@@ -11,15 +11,21 @@ import { color } from "../../variables/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { FormikErrors, FormikTouched } from "formik";
 
 interface IInputField {
   password?: boolean;
   label: string;
   onChangeText: (e: string | React.ChangeEvent<any>) => void;
   value: string | undefined;
-  error: string | undefined;
+  error?:
+    | string
+    | string[]
+    | FormikErrors<any>
+    | FormikErrors<any>[]
+    | undefined;
   onBlur?: (e: any) => void;
-  touched?: boolean | undefined;
+  touched?: boolean | FormikTouched<any> | FormikTouched<any>[] | undefined;
   disabled?: boolean | undefined;
 }
 const { height } = Dimensions.get("screen");
@@ -43,7 +49,7 @@ const InputField = ({
         touched &&
         Toast.show({
           type: "error",
-          text1: error,
+          text1: error as string,
           visibilityTime: 10000000,
           // topOffset: top ? top : 40,
           //  text2: "This is some something 👋",

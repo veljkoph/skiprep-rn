@@ -12,19 +12,15 @@ import { useTranslation } from "react-i18next";
 import Posts from "../../components/profile/Posts";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { ProfileStackParamList } from "../../navigation/Stacks/ProfileStack";
-
-const user = {
-  image:
-    "https://images.unsplash.com/photo-1594383815406-39916a2a5be8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-  username: "Skyuser",
-  email: "emailfake@gmail.fake",
-  sex: "M",
-  year: "1997",
-};
+import useProfile from "../../hooks/profile/useProfile";
 
 const Profile = () => {
   const { t } = useTranslation();
+
+  const { data: user, isLoading } = useProfile(3);
+
   const navigation = useNavigation<NavigationProp<ProfileStackParamList>>();
+  if (isLoading) return null;
   return (
     <ScrollView bounces={false} contentContainerStyle={styles.container}>
       <View style={{ paddingHorizontal: 10, width: "100%" }}>
@@ -36,7 +32,7 @@ const Profile = () => {
           }}
         >
           <TouchableOpacity>
-            <Image style={styles.image} source={{ uri: user.image }} />
+            <Image style={styles.image} source={{ uri: user?.avatar }} />
           </TouchableOpacity>
           <View
             style={{
@@ -46,20 +42,20 @@ const Profile = () => {
               rowGap: 5,
             }}
           >
-            <Text style={styles.name}>{user.username}</Text>
-            <Text style={styles.email}>{user.email}</Text>
+            <Text style={styles.name}>{user?.name}</Text>
+            <Text style={styles.email}>{user?.email}</Text>
           </View>
         </View>
         <View style={styles.mainInfo}>
           <View style={styles.infoItem}>
             <Text style={styles.infoItemTitle}>{t("age")}</Text>
-            <Text style={styles.infoItemText}>{user?.year}</Text>
+            <Text style={styles.infoItemText}>{user?.birth_year}</Text>
           </View>
 
           <View style={styles.separator} />
           <View style={styles.infoItem}>
             <Text style={styles.infoItemTitle}>{t("sex")}</Text>
-            <Text style={styles.infoItemText}>{user?.year}</Text>
+            <Text style={styles.infoItemText}>{user?.gender}</Text>
           </View>
 
           <View style={styles.separator} />

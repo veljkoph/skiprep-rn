@@ -52,6 +52,7 @@ const Post = (props: IPost) => {
     );
   }, []);
   if (!imageSize.height) return null;
+
   return (
     <View style={styles.container}>
       <View
@@ -94,20 +95,13 @@ const Post = (props: IPost) => {
         <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>
       </View>
 
-      {!isLoading ? (
-        <Image
-          // thumbnailSource={{
-          //   uri: "https://img.freepik.com/free-vector/blue-blurred-background-design_1107-117.jpg",
-          // }}
-          source={{ uri: `${BASE}${image}` }}
-          style={[styles.image, { aspectRatio: aspectRatio }]}
-          onLoadStart={() => console.log("onLoadStart")}
-          onLoadEnd={() => console.log("onLoadEnd")}
-          onLoad={() => handleImageLoad()}
-        />
-      ) : (
-        <ActivityIndicator style={{ height: 300 }} />
-      )}
+      <Image
+        // thumbnailSource={{
+        //   uri: "https://img.freepik.com/free-vector/blue-blurred-background-design_1107-117.jpg",
+        // }}
+        source={{ uri: `${BASE}${image}` }}
+        style={[styles.image, { aspectRatio: aspectRatio }]}
+      />
 
       {caption && (
         <Text style={styles.desc}>

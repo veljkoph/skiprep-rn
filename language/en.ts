@@ -60,4 +60,6 @@ export const en = {
   postDeleted: "Post Deleted",
   delete: "Delete",
   deletePost: "Delete post",
+  save: "Save",
+  editSuccessful: "Edit successful",
 };

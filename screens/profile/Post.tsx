@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { color } from "../../variables/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import ImageBlurLoading from "react-native-image-blur-loading";
+
 import BottomSheet from "@gorhom/bottom-sheet";
 import PostInfoSheet from "../../components/profile/PostInfoSheet";
 import { useSharedValue } from "react-native-reanimated";
@@ -131,13 +131,13 @@ const Post = (props: { route: { params: IPost } }) => {
       </View>
 
       {aspectRatio !== 0 && (
-        <ImageBlurLoading
+        <Image
           //  thumbnailSource={require("../../assets/icons/add.png")}
           source={{ uri: `${BASE}${image}` }}
           style={[styles.image, { aspectRatio: aspectRatio }]}
         />
       )}
-      <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text>
+      {/* <Text style={styles.time}>{dayjs(created_at)?.fromNow()}</Text> */}
       <BottomSheet
         ref={bottomSheetRef}
         index={-1}

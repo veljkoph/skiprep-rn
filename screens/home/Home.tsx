@@ -5,13 +5,8 @@ import { color } from "../../variables/color";
 import Post from "../../components/wall/Post";
 
 const Home = () => {
-  const {
-    data: wall,
-    isLoading,
-    refetch,
-    hasNextPage,
-    fetchNextPage,
-  } = useWall();
+  const { data: wall, refetch, hasNextPage, fetchNextPage } = useWall();
+
   return (
     <FlatList
       showsVerticalScrollIndicator={false}

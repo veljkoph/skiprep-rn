@@ -61,4 +61,6 @@ export const srb = {
   delete: "Obriši",
   postDeleted: "Objava obrisana",
   deletePost: "Obriši objavu",
+  save: "Sačuvaj",
+  editSuccessful: "Izmena uspešna",
 };

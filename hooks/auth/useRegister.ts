@@ -18,7 +18,6 @@ const useRegister = () => {
     (values: IRegister) => axios.post(`${BASE_URL}/register`, values),
     {
       onSuccess: async (data) => {
-        console.log(data.data);
         Toast.show({
           type: "success",
           text1: "You are registered",
