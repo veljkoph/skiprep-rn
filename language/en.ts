@@ -62,4 +62,5 @@ export const en = {
   deletePost: "Delete post",
   save: "Save",
   editSuccessful: "Edit successful",
+  skiOnTrack: "Ski on track",
 };

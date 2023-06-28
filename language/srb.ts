@@ -63,4 +63,5 @@ export const srb = {
   deletePost: "Obriši objavu",
   save: "Sačuvaj",
   editSuccessful: "Izmena uspešna",
+  skiOnTrack: "Skijaš na stazi",
 };

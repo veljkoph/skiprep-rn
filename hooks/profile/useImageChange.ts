@@ -2,17 +2,16 @@ import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
 import { BASE_URL } from "@env";
-
 import { useTranslation } from "react-i18next";
 
 //proveri da li radi bez multipart form data
-const useEditProfile = () => {
+const useImageChange = () => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   return useMutation(
     (values: any) =>
-      axios.post(`${BASE_URL}/user-basic/${values.user_id}`, values, {
-        //    headers: { "Content-Type": "multipart/form-data" },
+      axios.post(`${BASE_URL}/user-basic/3`, values, {
+        headers: { "Content-Type": "multipart/form-data" },
       }),
     {
       onSuccess: async (data) => {
@@ -35,4 +34,4 @@ const useEditProfile = () => {
   );
 };
 
-export default useEditProfile;
+export default useImageChange;

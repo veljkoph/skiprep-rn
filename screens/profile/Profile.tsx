@@ -13,13 +13,13 @@ import Posts from "../../components/profile/Posts";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { ProfileStackParamList } from "../../navigation/Stacks/ProfileStack";
 import useProfile from "../../hooks/profile/useProfile";
+import ProfileImage from "../../components/profile/ProfileImage";
 
 const Profile = () => {
   const { t } = useTranslation();
-
   const { data: user, isLoading } = useProfile(3);
-
   const navigation = useNavigation<NavigationProp<ProfileStackParamList>>();
+
   if (isLoading) return null;
   return (
     <ScrollView bounces={false} contentContainerStyle={styles.container}>
@@ -31,9 +31,7 @@ const Profile = () => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity>
-            <Image style={styles.image} source={{ uri: user?.avatar }} />
-          </TouchableOpacity>
+          <ProfileImage uri={user?.image} />
           <View
             style={{
               justifyContent: "center",
@@ -64,12 +62,20 @@ const Profile = () => {
             <Text style={styles.infoItemText}>{user?.year}</Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={styles.editBtn}
-          onPress={() => navigation.navigate("EditProfile")}
-        >
-          <Text style={styles.editBtnText}>{t("editProfile")}</Text>
-        </TouchableOpacity>
+        <View style={styles.profileBtns}>
+          <TouchableOpacity
+            style={styles.editBtn}
+            onPress={() => navigation.navigate("EditProfile")}
+          >
+            <Text style={styles.editBtnText}>{t("editProfile")}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.skiOnTrack}
+            onPress={() => navigation.navigate("SurveyTrack")}
+          >
+            <Text style={styles.editBtnText}>{t("skiOnTrack")}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <Posts />
     </ScrollView>
@@ -118,17 +124,32 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: color.secondary3,
   },
+  profileBtns: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    columnGap: 10,
+  },
   editBtn: {
     backgroundColor: "#188368",
-    width: "100%",
+    // width: "100%",
+    flexGrow: 1,
     paddingHorizontal: 10,
-    paddingVertical: 16,
+    paddingVertical: 12,
+    borderRadius: 30,
+    alignItems: "center",
+  },
+  skiOnTrack: {
+    backgroundColor: color.secondary,
+    // width: "100%",
+    flexGrow: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 12,
     borderRadius: 30,
     alignItems: "center",
   },
   editBtnText: {
     color: color.white,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: "Lexend-Bold",
   },
   name: {
