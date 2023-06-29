@@ -64,4 +64,5 @@ export const srb = {
   save: "Sačuvaj",
   editSuccessful: "Izmena uspešna",
   skiOnTrack: "Skijaš na stazi",
+  selectOption: "Izaberi",
 };

@@ -63,4 +63,5 @@ export const en = {
   save: "Save",
   editSuccessful: "Edit successful",
   skiOnTrack: "Ski on track",
+  selectOption: "Select option",
 };
